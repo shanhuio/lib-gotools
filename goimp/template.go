@@ -4,7 +4,7 @@ import (
 	"html/template"
 )
 
-var tmpl = template.Must(template.New("index").Parse(`<doctype html>
+var tmpl = template.Must(template.New("index").Parse(`<!doctype html>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -13,7 +13,7 @@ var tmpl = template.Must(template.New("index").Parse(`<doctype html>
 		url=https://gowalker.org/{{.ImportRoot}}{{.Suffix}}">
 </head>
 <body>
-One day, code will readable as literature.
+One day, we will read code like novels.
 </body>
 </html>
 `))

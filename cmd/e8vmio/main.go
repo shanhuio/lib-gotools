@@ -1,19 +1,31 @@
 package main
 
 import (
+	"flag"
 	"log"
 	"net/http"
 
 	"e8vm.io/tools/goimp"
 )
 
+var (
+	addr = flag.String("addr", "localhost:3000", "address to listen")
+	dom  = flag.String("domain", "e8vm.io", "the domain")
+)
+
 func main() {
-	for path, repo := range map[string]string{
-		"e8vm.io/e8vm":  "https://github.com/e8vm/e8vm",
-		"e8vm.io/tools": "https://github.com/e8vm/tools",
+	flag.Parse()
+
+	route := func(sub string) string { return "/" + sub + "/" }
+	path := func(sub string) string { return *dom + "/" + sub }
+
+	for sub, repo := range map[string]string{
+		"e8vm":  "https://github.com/e8vm/e8vm",
+		"tools": "https://github.com/e8vm/tools",
 	} {
-		http.Handle(path, goimp.NewGitRepo(path, repo))
+		http.Handle(route(sub), goimp.NewGitRepo(path(sub), repo))
 	}
 
-	log.Fatal(http.ListenAndServe(":3000", nil))
+	log.Printf("serve at %s", *addr)
+	log.Fatal(http.ListenAndServe(*addr, nil))
 }

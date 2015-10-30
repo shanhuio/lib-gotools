@@ -2,6 +2,7 @@ package goimp
 
 import (
 	"bytes"
+	"log"
 	"net/http"
 	"strings"
 )
@@ -11,6 +12,14 @@ type Repo struct {
 	ImportRoot string
 	VCS        string
 	VCSRoot    string
+}
+
+func host(path string) string {
+	i := strings.Index(path, "/")
+	if i < 0 {
+		return path
+	}
+	return path[:i]
 }
 
 // NewGitRepo creates a new git repository for import redirection.
@@ -23,7 +32,8 @@ func NewGitRepo(path, repoAddr string) *Repo {
 }
 
 func (r *Repo) ServeHTTP(w http.ResponseWriter, req *http.Request) {
-	path := strings.TrimSuffix(req.Host+req.URL.Path, "/")
+	path := strings.TrimSuffix(host(r.ImportRoot)+req.URL.Path, "/")
+
 	if !strings.HasPrefix(path, r.ImportRoot) {
 		http.NotFound(w, req)
 		return
@@ -35,6 +45,8 @@ func (r *Repo) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 		VCSRoot:    r.VCSRoot,
 		Suffix:     strings.TrimSuffix(path, r.ImportRoot),
 	}
+
+	log.Println(d.ImportRoot, d.Suffix)
 
 	buf := new(bytes.Buffer)
 	if err := tmpl.Execute(buf, d); err != nil {
