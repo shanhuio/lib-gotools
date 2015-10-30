@@ -1,0 +1,240 @@
+{
+    "height": 14,
+    "width": 9,
+    "nodes": {
+        "console": {
+            "x": 6,
+            "y": 7,
+            "ins": [
+                "device",
+                "int_bus",
+                "page"
+            ],
+            "outs": [
+                "machine"
+            ]
+        },
+        "cpu": {
+            "x": 4,
+            "y": 7,
+            "ins": [
+                "interrupt",
+                "regs",
+                "virt_memory"
+            ],
+            "outs": [
+                "inst_br",
+                "inst_imm",
+                "inst_jmp",
+                "inst_reg",
+                "inst_sys",
+                "multi_core"
+            ]
+        },
+        "device": {
+            "x": 5,
+            "y": 0,
+            "ins": [],
+            "outs": [
+                "console",
+                "serial"
+            ]
+        },
+        "exception": {
+            "x": 0,
+            "y": 6,
+            "ins": [],
+            "outs": [
+                "phy_memory"
+            ]
+        },
+        "inst_all": {
+            "x": 6,
+            "y": 5,
+            "ins": [
+                "inst_br",
+                "inst_imm",
+                "inst_jmp",
+                "inst_reg",
+                "inst_sys"
+            ],
+            "outs": [
+                "machine"
+            ]
+        },
+        "inst_br": {
+            "x": 5,
+            "y": 6,
+            "ins": [
+                "cpu"
+            ],
+            "outs": [
+                "inst_all"
+            ]
+        },
+        "inst_imm": {
+            "x": 5,
+            "y": 9,
+            "ins": [
+                "cpu"
+            ],
+            "outs": [
+                "inst_all"
+            ]
+        },
+        "inst_jmp": {
+            "x": 5,
+            "y": 4,
+            "ins": [
+                "cpu"
+            ],
+            "outs": [
+                "inst_all"
+            ]
+        },
+        "inst_reg": {
+            "x": 5,
+            "y": 11,
+            "ins": [
+                "cpu"
+            ],
+            "outs": [
+                "inst_all"
+            ]
+        },
+        "inst_sys": {
+            "x": 5,
+            "y": 2,
+            "ins": [
+                "cpu"
+            ],
+            "outs": [
+                "inst_all"
+            ]
+        },
+        "int_bus": {
+            "x": 5,
+            "y": 13,
+            "ins": [],
+            "outs": [
+                "console",
+                "serial",
+                "ticker"
+            ]
+        },
+        "interrupt": {
+            "x": 3,
+            "y": 9,
+            "ins": [
+                "page"
+            ],
+            "outs": [
+                "cpu"
+            ]
+        },
+        "machine": {
+            "x": 7,
+            "y": 9,
+            "ins": [
+                "console",
+                "inst_all",
+                "multi_core",
+                "serial",
+                "ticker"
+            ],
+            "outs": [
+                "run_image"
+            ]
+        },
+        "multi_core": {
+            "x": 6,
+            "y": 9,
+            "ins": [
+                "cpu"
+            ],
+            "outs": [
+                "machine"
+            ]
+        },
+        "page": {
+            "x": 0,
+            "y": 8,
+            "ins": [],
+            "outs": [
+                "console",
+                "interrupt",
+                "phy_memory",
+                "serial"
+            ]
+        },
+        "page_table": {
+            "x": 2,
+            "y": 7,
+            "ins": [
+                "phy_memory"
+            ],
+            "outs": [
+                "virt_memory"
+            ]
+        },
+        "phy_memory": {
+            "x": 1,
+            "y": 7,
+            "ins": [
+                "exception",
+                "page"
+            ],
+            "outs": [
+                "page_table"
+            ]
+        },
+        "regs": {
+            "x": 3,
+            "y": 7,
+            "ins": [],
+            "outs": [
+                "cpu"
+            ]
+        },
+        "run_image": {
+            "x": 8,
+            "y": 9,
+            "ins": [
+                "machine"
+            ],
+            "outs": []
+        },
+        "serial": {
+            "x": 6,
+            "y": 11,
+            "ins": [
+                "device",
+                "int_bus",
+                "page"
+            ],
+            "outs": [
+                "machine"
+            ]
+        },
+        "ticker": {
+            "x": 6,
+            "y": 13,
+            "ins": [
+                "int_bus"
+            ],
+            "outs": [
+                "machine"
+            ]
+        },
+        "virt_memory": {
+            "x": 3,
+            "y": 5,
+            "ins": [
+                "page_table"
+            ],
+            "outs": [
+                "cpu"
+            ]
+        }
+    }
+}
