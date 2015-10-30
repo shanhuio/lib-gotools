@@ -1,0 +1,73 @@
+{
+    "height": 4,
+    "width": 5,
+    "nodes": {
+        "graph": {
+            "x": 1,
+            "y": 0,
+            "ins": [],
+            "outs": [
+                "map"
+            ]
+        },
+        "json": {
+            "x": 3,
+            "y": 1,
+            "ins": [
+                "map"
+            ],
+            "outs": [
+                "layout"
+            ]
+        },
+        "layout": {
+            "x": 4,
+            "y": 2,
+            "ins": [
+                "json",
+                "push_tight"
+            ],
+            "outs": []
+        },
+        "map": {
+            "x": 2,
+            "y": 1,
+            "ins": [
+                "graph",
+                "nodes_sorter"
+            ],
+            "outs": [
+                "json",
+                "push_tight"
+            ]
+        },
+        "map_node": {
+            "x": 0,
+            "y": 0,
+            "ins": [],
+            "outs": [
+                "nodes_sorter"
+            ]
+        },
+        "nodes_sorter": {
+            "x": 1,
+            "y": 2,
+            "ins": [
+                "map_node"
+            ],
+            "outs": [
+                "map"
+            ]
+        },
+        "push_tight": {
+            "x": 3,
+            "y": 3,
+            "ins": [
+                "map"
+            ],
+            "outs": [
+                "layout"
+            ]
+        }
+    }
+}
