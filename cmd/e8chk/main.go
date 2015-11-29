@@ -34,7 +34,7 @@ func checkRectLoaded(prog *goload.Program, h, w int) []*lex8.Error {
 				continue
 			}
 
-			textbox.CheckRect(errs, name, fin, h, w)
+			errs.AddAll(textbox.CheckRect(name, fin, h, w))
 			if lex8.LogError(errs, fin.Close()) {
 				continue
 			}
