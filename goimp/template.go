@@ -9,8 +9,7 @@ var tmpl = template.Must(template.New("index").Parse(`<!doctype html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<meta name="go-import" content="{{.ImportRoot}} {{.VCS}} {{.VCSRoot}}">
-	<meta http-equiv="refresh" content="0;
-		url=https://gowalker.org/{{.ImportRoot}}{{.Suffix}}">
+	<meta http-equiv="refresh" content="0; url={{.VCSRoot}}">
 </head>
 <body>
 One day, we will read code like novels.
