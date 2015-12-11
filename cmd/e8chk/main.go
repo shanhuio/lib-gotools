@@ -66,11 +66,11 @@ func main() {
 	}
 
 	fileDeps := godep.FileDepLoaded(prog)
-
 	for p, g := range fileDeps {
 		_, e = dagvis.IsDAG(g)
 		if e != nil {
 			errExit(fmt.Errorf("%s: %s", p, e))
+			os.Exit(-1)
 		}
 	}
 }
