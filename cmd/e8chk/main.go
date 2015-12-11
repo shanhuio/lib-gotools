@@ -70,7 +70,6 @@ func main() {
 		_, e = dagvis.IsDAG(g)
 		if e != nil {
 			errExit(fmt.Errorf("%s: %s", p, e))
-			os.Exit(-1)
 		}
 	}
 }
