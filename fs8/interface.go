@@ -7,7 +7,7 @@ type FileSys interface {
 
 // Session is a file system login session.
 type Session interface {
-	NewCommit(base int) (int, error)
+	CheckOut(base int) (int, error)
 	ListFiles(c int) ([]string, error)
 	Read(c int, name string) (*string, error)
 	Write(c int, name string, s *string) error
