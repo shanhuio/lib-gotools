@@ -1,50 +1,17 @@
-- let's build an online file system.
-- navigation bar on top
+- I used to design a fs here, but designing a file system now is off the point.
+- what we really want is a website that stores code and allows easy collaboration.
+- the storage design should be driven by the product design from the user's perspective.
+- so design from the website first, and then build teh required backend for the website.
+- just keep the architecture clean and agile.
 
-< branch @ version/time > | user(repo) > package > file
+ok.
 
-first version:
-- one file system, only save snapshots
-- can store only changed files (each file about 300 lines anyways)
-- each snapshot is logically a dict of filenames to file contents
+- let's learn some basic react and angular.js
+- step 1: build a single file compile and commmit web app
+- step 2: build a single package compile and commit web app
+- step 3: build a multi package compile and commit web app
 
-actions:
-- add/set/delete file in a snapshot
-- all actions to a snapshot are serialized
-- merge snapshot must: no file conflict, compiles, tests passing
-
-session is a user name
-- NewCommit(base int) int
-- ListFiles(c int) []string
-- Read(c int, name string) *string
-- Write(c int, name string, s *string) error
-- Submit(c int) // mark as read only now
-- Merge(base, other int) (int, error) // this is the hardest one
-- NewBranch(name string, c int)
-- BranchMerge(name string, c int) error
-
-each user has its own repo
-each repo has a list of snapshots
-a branch is a list of snapshots
-the master is a special branch
-the repo owner can merge a branch into master
-the branch owner can merge any other branch into its branch
-only the master branch is importable from other 
-
-- auto saving snapshots
-- snapshots can have names
-- online meld like diff support (optional)
-- all files are text files
-- folders work like a file explorer/browser
-- command line support in a folder (optional)
-
-backend
-- for simplicity, all operations are logged and serialized.
-- each operation will evolve into a new version.
-- one can clone from one tag into another tag.
-- a branch is hence fundamentally a cl, or a diff
-- a branch has a base (the diff base)
-- each branch snapshot has a father
-- so, we save branches always in diffs, with file/folder add/delete/changes.
-- and we save the master thread always in snapshots, with deduped files.
-
+- all contents served by a reverse proxy
+- static contents stored in a separate directory
+- dynamic contents served as a go language program
+- each template has a static version, with some stub data input

@@ -32,18 +32,7 @@ doc:
 asmt:
 	make -C asm/tests --no-print-directory
 
-stayall:
-	STAYPATH=`pwd`/stay-tests stayall
-
 lint:
 	golint ./...
 
-symdep:
-	symdep e8vm.io/tools/dagvis
-	symdep e8vm.io/tools/godep
-	symdep e8vm.io/tools/goview
-	symdep e8vm.io/tools/goload
-	symdep e8vm.io/tools/e8doc
-	symdep e8vm.io/tools/e8dag
-
-check: fmt all lint symdep
+check: fmt all lint

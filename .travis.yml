@@ -1,0 +1,17 @@
+sudo: false
+language: go
+go_import_path: e8vm.io/tools
+
+go:
+    - 1.5
+    - tip
+
+install:
+    - go get ./...
+    - go get -u github.com/golang/lint/golint
+
+script:
+    - test -z `gofmt -s -l .`
+    - go test ./...
+    - e8chk -path="e8vm.io/tools"
+    - golint ./...
