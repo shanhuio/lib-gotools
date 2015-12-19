@@ -29,10 +29,5 @@ lc:
 doc:
 	godoc -http=:8000
 
-asmt:
-	make -C asm/tests --no-print-directory
-
 lint:
 	golint ./...
-
-check: fmt all lint
