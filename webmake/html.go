@@ -1,39 +1,31 @@
 package webmake
 
 import (
-	"fmt"
 	"html/template"
 	"io/ioutil"
-	"os"
-	"path/filepath"
 )
 
-func buildHTML(p *Project, dir *dir, f string) error {
-	inPath := filepath.Join(p.In, f)
-	outPath := filepath.Join(p.Out, f)
-	fmt.Println(inPath)
+func buildHTML(b *builder, f string) error {
+	tmpl := b.dir.template
+	if tmpl == nil {
+		return b.copyFile(f)
+	}
 
-	bs, err := ioutil.ReadFile(inPath)
+	fin := b.fin(f)
+	bs, err := ioutil.ReadFile(fin)
 	if err != nil {
 		return err
 	}
-	// TODO: parse for body, styles and scripts
-
-	if dir.template == nil {
-		// no template just copy the contents
-		return ioutil.WriteFile(outPath, bs, 0644)
-	}
-
-	fout, err := os.Create(outPath)
+	fout, err := b.createFout(f)
 	if err != nil {
 		return err
 	}
+	defer fout.Close()
 
 	page := &Page{
 		Body: template.HTML(string(bs)),
 	}
-	if err := page.Render(fout, dir.template); err != nil {
-		fout.Close()
+	if err := page.Render(fout, tmpl); err != nil {
 		return err
 	}
 	if err := fout.Close(); err != nil {
