@@ -17,6 +17,7 @@ type dir struct {
 	coffeeFiles *fileSet
 	jsFiles     *fileSet
 	goFiles     *fileSet
+	pngFiles    *fileSet
 
 	extMap map[string]*fileSet
 
@@ -51,6 +52,7 @@ func newEmptyDir(path string) *dir {
 		coffeeFiles: newFileSet(),
 		jsFiles:     newFileSet(),
 		goFiles:     newFileSet(),
+		pngFiles:    newFileSet(),
 	}
 	ret.extMap = map[string]*fileSet{
 		".html":     ret.htmlFiles,
@@ -62,6 +64,7 @@ func newEmptyDir(path string) *dir {
 		".coffee":   ret.coffeeFiles,
 		".js":       ret.jsFiles,
 		".go":       ret.goFiles,
+		".png":      ret.pngFiles,
 	}
 	return ret
 }

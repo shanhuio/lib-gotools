@@ -2,7 +2,15 @@ package webmake
 
 import (
 	"fmt"
+	"os/exec"
 )
+
+func buildByCopy(b *builder, f string) error {
+	fin := b.fin(f)
+	fout := b.fout(f)
+	cmd := exec.Command("cp", fin, fout)
+	return cmd.Run()
+}
 
 func buildAll(b *builder) error {
 	var err error
@@ -25,6 +33,7 @@ func buildAll(b *builder) error {
 	dir := b.dir
 	o(dir.htmlFiles, buildHTML)
 	o(dir.lessFiles, buildLess)
+	o(dir.pngFiles, buildByCopy)
 	return err
 }
 
