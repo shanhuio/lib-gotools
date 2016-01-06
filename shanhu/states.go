@@ -10,20 +10,30 @@ import (
 )
 
 type states struct {
-	key []byte
+	key     []byte
+	timeNow func() time.Time
 }
 
-func newStates() *states {
-	const keyLen = 32
-	key := make([]byte, keyLen)
-	_, err := rand.Read(key)
-	if err != nil {
-		panic(err)
+func newStates(key []byte) *states {
+	if key == nil {
+		key = make([]byte, 32)
+		_, err := rand.Read(key)
+		if err != nil {
+			panic(err)
+		}
 	}
-	return &states{key}
+
+	return &states{key: key}
 }
 
 const timestampLen = 8
+
+func (s *states) now() time.Time {
+	if s.timeNow == nil {
+		return time.Now()
+	}
+	return s.timeNow()
+}
 
 func (s *states) hash(ts []byte) []byte {
 	m := hmac.New(sha256.New, s.key)
@@ -34,7 +44,7 @@ func (s *states) hash(ts []byte) []byte {
 func (s *states) New() string {
 	buf := make([]byte, timestampLen+sha256.Size)
 	ts := buf[:timestampLen]
-	now := time.Now().UnixNano()
+	now := s.now().UnixNano()
 	binary.LittleEndian.PutUint64(ts, uint64(now))
 	h := s.hash(ts)
 	copy(buf[timestampLen:], h) // append the hash to the end
@@ -59,5 +69,5 @@ func (s *states) Check(state string) bool {
 	if t < 0 {
 		return false
 	}
-	return time.Now().Before(time.Unix(0, t).Add(stateTTL))
+	return s.now().Before(time.Unix(0, t).Add(stateTTL))
 }
