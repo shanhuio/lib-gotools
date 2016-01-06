@@ -1,11 +1,10 @@
-package front
+package shanhu
 
 import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"time"
 
 	"golang.org/x/oauth2"
 	gh "golang.org/x/oauth2/github"
@@ -27,8 +26,6 @@ func newGithub(id, secret string) *github {
 		states: new(states),
 	}
 }
-
-var stateDuration = time.Minute
 
 func (g *github) signInURL() string {
 	state := g.states.New()
