@@ -14,7 +14,7 @@ type states struct {
 }
 
 func newStates() *states {
-	const keyLen = 256
+	const keyLen = 32
 	key := make([]byte, keyLen)
 	_, err := rand.Read(key)
 	if err != nil {
@@ -23,21 +23,21 @@ func newStates() *states {
 	return &states{key}
 }
 
-const saltLen = 8
+const timestampLen = 8
 
-func (s *states) hash(salt []byte) []byte {
+func (s *states) hash(ts []byte) []byte {
 	m := hmac.New(sha256.New, s.key)
-	m.Write(salt)
+	m.Write(ts)
 	return m.Sum(nil)
 }
 
 func (s *states) New() string {
-	buf := make([]byte, saltLen+sha256.Size)
-	salt := buf[:saltLen]
+	buf := make([]byte, timestampLen+sha256.Size)
+	ts := buf[:timestampLen]
 	now := time.Now().UnixNano()
-	binary.LittleEndian.PutUint64(buf[:saltLen], uint64(now))
-	h := s.hash(salt)
-	copy(buf[saltLen:], h)
+	binary.LittleEndian.PutUint64(ts, uint64(now))
+	h := s.hash(ts)
+	copy(buf[timestampLen:], h) // append the hash to the end
 	return base64.URLEncoding.EncodeToString(buf)
 }
 
@@ -48,13 +48,14 @@ func (s *states) Check(state string) bool {
 	if err != nil {
 		return false
 	}
-	salt := bs[:saltLen]
-	got := bs[saltLen:]
-	want := s.hash(salt)
+
+	ts := bs[:timestampLen]
+	got := bs[timestampLen:]
+	want := s.hash(ts)
 	if !hmac.Equal(got, want) {
 		return false
 	}
-	t := int64(binary.LittleEndian.Uint64(salt))
+	t := int64(binary.LittleEndian.Uint64(ts))
 	if t < 0 {
 		return false
 	}
