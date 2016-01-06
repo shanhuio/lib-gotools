@@ -10,29 +10,29 @@ import (
 	gh "golang.org/x/oauth2/github"
 )
 
-type github struct {
+type gitHub struct {
 	config *oauth2.Config
 	states *states
 }
 
-func newGithub(id, secret string) *github {
-	return &github{
+func newGitHub(id, secret string, key []byte) *gitHub {
+	return &gitHub{
 		config: &oauth2.Config{
 			ClientID:     id,
 			ClientSecret: secret,
 			Scopes:       []string{}, // only need public information
 			Endpoint:     gh.Endpoint,
 		},
-		states: new(states),
+		states: newStates(key),
 	}
 }
 
-func (g *github) signInURL() string {
+func (g *gitHub) signInURL() string {
 	state := g.states.New()
 	return g.config.AuthCodeURL(state)
 }
 
-func (g *github) stateCode(req *http.Request) (state, code string) {
+func (g *gitHub) stateCode(req *http.Request) (state, code string) {
 	values := req.URL.Query()
 	state = values.Get("state")
 	if state != "" {
@@ -41,7 +41,7 @@ func (g *github) stateCode(req *http.Request) (state, code string) {
 	return state, code
 }
 
-func (g *github) getLogin(tok *oauth2.Token) (string, error) {
+func (g *gitHub) getLogin(tok *oauth2.Token) (string, error) {
 	client := g.config.Client(oauth2.NoContext, tok)
 	resp, err := client.Get("https://api.github.com/user")
 	if err != nil {
@@ -66,7 +66,7 @@ func (g *github) getLogin(tok *oauth2.Token) (string, error) {
 	return ret, nil
 }
 
-func (g *github) callback(req *http.Request) (string, error) {
+func (g *gitHub) callback(req *http.Request) (string, error) {
 	state, code := g.stateCode(req)
 	if state == "" {
 		return "", fmt.Errorf("invalid oauth redirect")
