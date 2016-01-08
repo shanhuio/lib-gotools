@@ -9,7 +9,7 @@ import (
 )
 
 var (
-	config = flag.String("config", "shanhu.json", "path to config file")
+	config = flag.String("config", "shanhu.config", "path to config file")
 	addr   = flag.String("addr", "localhost:3355", "address to serve on")
 )
 
@@ -27,6 +27,7 @@ func main() {
 	ne(err)
 
 	http.Handle("/", h)
+	log.Printf("server at %s", *addr)
 	err = http.ListenAndServe(*addr, nil)
 	ne(err)
 }

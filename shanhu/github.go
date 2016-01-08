@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"time"
 
 	"golang.org/x/oauth2"
 	gh "golang.org/x/oauth2/github"
@@ -16,6 +17,7 @@ type gitHub struct {
 }
 
 func newGitHub(id, secret string, key []byte) *gitHub {
+	const ttl time.Duration = time.Minute
 	return &gitHub{
 		config: &oauth2.Config{
 			ClientID:     id,
@@ -23,7 +25,7 @@ func newGitHub(id, secret string, key []byte) *gitHub {
 			Scopes:       []string{}, // only need public information
 			Endpoint:     gh.Endpoint,
 		},
-		states: newStates(key),
+		states: newStates(key, ttl),
 	}
 }
 

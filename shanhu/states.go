@@ -4,17 +4,18 @@ import (
 	"crypto/hmac"
 	"crypto/rand"
 	"crypto/sha256"
-	"encoding/base64"
 	"encoding/binary"
+	"encoding/hex"
 	"time"
 )
 
 type states struct {
 	key     []byte
 	timeNow func() time.Time
+	ttl     time.Duration
 }
 
-func newStates(key []byte) *states {
+func newStates(key []byte, ttl time.Duration) *states {
 	if key == nil {
 		key = make([]byte, 32)
 		_, err := rand.Read(key)
@@ -23,7 +24,7 @@ func newStates(key []byte) *states {
 		}
 	}
 
-	return &states{key: key}
+	return &states{key: key, ttl: ttl}
 }
 
 const timestampLen = 8
@@ -48,14 +49,15 @@ func (s *states) New() string {
 	binary.LittleEndian.PutUint64(ts, uint64(now))
 	h := s.hash(ts)
 	copy(buf[timestampLen:], h) // append the hash to the end
-	return base64.URLEncoding.EncodeToString(buf)
+	return hex.EncodeToString(buf)
 }
 
-var stateTTL = time.Minute * 3
-
 func (s *states) Check(state string) bool {
-	bs, err := base64.URLEncoding.DecodeString(state)
+	bs, err := hex.DecodeString(state)
 	if err != nil {
+		return false
+	}
+	if len(bs) < timestampLen {
 		return false
 	}
 
@@ -69,5 +71,5 @@ func (s *states) Check(state string) bool {
 	if t < 0 {
 		return false
 	}
-	return s.now().Before(time.Unix(0, t).Add(stateTTL))
+	return s.now().Before(time.Unix(0, t).Add(s.ttl))
 }
