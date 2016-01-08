@@ -40,11 +40,12 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	defer req.Body.Close()
 
 	path := req.URL.Path
-	log.Println("get: ", path)
+	log.Println("serving: ", path)
+	c := &context{w: w, req: req}
 
 	switch path {
 	case "/github/signin":
-		http.Redirect(w, req, h.gh.signInURL(), http.StatusFound)
+		c.redirect(h.gh.signInURL())
 	case "/github/callback":
 		user, err := h.gh.callback(req)
 		if err != nil {
@@ -59,31 +60,17 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 		if user == "h8liu" {
 			session := h.sessions.New()
 			expires := time.Now().Add(sessionTTL)
-			addCookie := func(name, value string) {
-				cookie := &http.Cookie{
-					Name:    name,
-					Value:   value,
-					Path:    "/",
-					Expires: expires,
-				}
-				http.SetCookie(w, cookie)
-			}
-
-			addCookie("user", user)
-			addCookie("session", session)
-			http.Redirect(w, req, "/", http.StatusFound)
+			c.writeCookie("user", user, expires)
+			c.writeCookie("session", session, expires)
+			c.redirect("/")
 		}
 	default:
-		readCookie := func(name string) string {
-			cookie, err := req.Cookie(name)
-			if err != nil || cookie == nil {
-				return ""
-			}
-			return cookie.Value
-		}
-
-		user := readCookie("user")
-		session := readCookie("session")
+		// TODO: this is wrong
+		// this trusts the user field when the session passes,
+		// this will allow the user pretent to be anyone by using
+		// a valid session token
+		user := c.readCookie("user")
+		session := c.readCookie("session")
 		if !h.sessions.Check(session) {
 			fmt.Fprintln(w, `<a href="/github/signin">please sign in</a>`)
 			return
