@@ -2,13 +2,13 @@ package godep
 
 import (
 	"fmt"
+	"go/token"
+	"go/types"
 	"path/filepath"
 	"sort"
 	"strings"
 
-	"go/token"
 	"golang.org/x/tools/go/loader"
-	"golang.org/x/tools/go/types"
 
 	"e8vm.io/e8vm/dagvis"
 	"e8vm.io/tools/goload"

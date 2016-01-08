@@ -7,7 +7,7 @@ go:
 
 install:
     - go get ./...
-    - go get -u github.com/golang/lint/golint
+    - go get github.com/golang/lint/golint
 
 script:
     - test -z `gofmt -s -l .`
