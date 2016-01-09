@@ -81,6 +81,8 @@ func (h *Handler) serve(c *context, path string) {
 			log.Printf("Unauthorized user %q tried to sign in.", user)
 			return
 		}
+
+		log.Printf("User %q signed in.", user)
 		session, expires := h.sessions.New(user)
 		c.writeCookie("session", session, expires)
 		c.redirect("/")
