@@ -9,7 +9,9 @@ import (
 type Config struct {
 	GitHubAppID     string
 	GitHubAppSecret string
-	StateAuthKey    string
+	StateKey        string
+	Users           []string
+	SessionKey      string
 }
 
 // LoadConfig loads the config from a json file.

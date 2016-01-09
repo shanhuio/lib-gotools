@@ -31,3 +31,12 @@ func (c *context) writeCookie(name, value string, expires time.Time) {
 	}
 	http.SetCookie(c.w, cookie)
 }
+
+func (c *context) clearCookie(name string) {
+	cookie := &http.Cookie{
+		Name:  name,
+		Value: "",
+		Path:  "/",
+	}
+	http.SetCookie(c.w, cookie)
+}
