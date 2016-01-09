@@ -14,15 +14,23 @@ type Handler struct {
 	c        *Config
 	gh       *gitHub
 	sessions *sessionStore
+	users    map[string]bool
 }
 
 // NewHandler creates a new http handler.
 func NewHandler(c *Config) (*Handler, error) {
 	gh := newGitHub(c.GitHubAppID, c.GitHubAppSecret, []byte(c.StateKey))
+
+	users := make(map[string]bool)
+	for _, u := range c.Users {
+		users[u] = true
+	}
+
 	return &Handler{
 		c:        c,
 		gh:       gh,
 		sessions: newSessionStore([]byte(c.SessionKey)),
+		users:    users,
 	}, nil
 }
 
@@ -88,11 +96,21 @@ func (h *Handler) serve(c *context, path string) {
 			return
 		}
 
-		h.serveUser(c, session.User, path)
+		user := session.User
+		if !h.users[user] {
+			c.clearCookie("session")
+			msg := fmt.Sprintf("user %q not authorized, " +
+				"please contact liulonnie@gmail.com.")
+			http.Error(c.w, msg, 403)
+			return
+		}
+
+		h.serveUser(c, user, path)
 	}
 }
 
 func (h *Handler) serveUser(c *context, user, path string) {
+	log.Printf("[%s] %s", user, path)
 	if strings.HasPrefix(path, "/data/") {
 		h.serveData(c, user, path)
 		return
@@ -116,6 +134,5 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	defer req.Body.Close()
 	c := &context{w: w, req: req}
 	path := req.URL.Path
-	log.Println("serving: ", path)
 	h.serve(c, path)
 }
