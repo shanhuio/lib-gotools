@@ -52,6 +52,8 @@ func serveFile(w http.ResponseWriter, file string) {
 	}
 }
 
+func (h *Handler) hasUser(u string) bool { return h.users[u] }
+
 func (h *Handler) serve(c *context, path string) {
 	if strings.HasPrefix(path, "/assets/") {
 		serveFile(c.w, "_"+path)
@@ -74,15 +76,14 @@ func (h *Handler) serve(c *context, path string) {
 			fmt.Fprintln(c.w, err)
 			return
 		}
-		if user != "h8liu" {
-			fmt.Fprintln(c.w, err)
+		if !h.hasUser(user) {
+			fmt.Fprintf(c.w, "User %q is not authorized.", user)
+			log.Printf("Unauthorized user %q tried to sign in.", user)
 			return
 		}
-		if user == "h8liu" {
-			session, expires := h.sessions.New(user)
-			c.writeCookie("session", session, expires)
-			c.redirect("/")
-		}
+		session, expires := h.sessions.New(user)
+		c.writeCookie("session", session, expires)
+		c.redirect("/")
 	case "/github/signout":
 		c.clearCookie("session")
 		c.redirect("/")
@@ -97,7 +98,7 @@ func (h *Handler) serve(c *context, path string) {
 		}
 
 		user := session.User
-		if !h.users[user] {
+		if !h.hasUser(user) {
 			c.clearCookie("session")
 			msg := fmt.Sprintf("user %q not authorized, " +
 				"please contact liulonnie@gmail.com.")
