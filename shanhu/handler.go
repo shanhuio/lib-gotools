@@ -1,6 +1,7 @@
 package shanhu
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"log"
@@ -129,8 +130,29 @@ func (h *Handler) serveUser(c *context, user, path string) {
 	}
 }
 
+func serveJsVar(w http.ResponseWriter, v interface{}) {
+	fmt.Fprintf(w, "var shanhu = ")
+	bs, err := json.Marshal(v)
+	if err != nil {
+		log.Fatal(err)
+	}
+	w.Write(bs)
+	fmt.Fprintf(w, ";")
+}
+
 func (h *Handler) serveData(c *context, user, path string) {
-	http.Error(c.w, "Data not implemented yet.", 404)
+	obj := make(map[string]interface{})
+	obj["user"] = user
+
+	switch path {
+	case "/data/proj.js":
+		obj["proj"] = nil
+	default:
+		http.Error(c.w, "Invalid data request.", 404)
+		return
+	}
+
+	serveJsVar(c.w, obj)
 }
 
 func (h *Handler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
