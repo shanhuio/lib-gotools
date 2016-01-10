@@ -125,13 +125,19 @@ func (h *Handler) serveUser(c *context, user, path string) {
 		serveFile(c.w, "_/proj.html")
 	case "/file.html":
 		serveFile(c.w, "_/file.html")
+
+	case "/js/proj.js":
+		serveFile(c.w, "_/proj.js")
+	case "/js/file.js":
+		serveFile(c.w, "_/file.js")
+
 	default:
 		http.Error(c.w, "File not found.", 404)
 	}
 }
 
 func serveJsVar(w http.ResponseWriter, v interface{}) {
-	fmt.Fprintf(w, "var shanhu = ")
+	fmt.Fprintf(w, "var shanhuData = ")
 	bs, err := json.Marshal(v)
 	if err != nil {
 		log.Fatal(err)
@@ -142,7 +148,9 @@ func serveJsVar(w http.ResponseWriter, v interface{}) {
 
 func (h *Handler) serveData(c *context, user, path string) {
 	obj := make(map[string]interface{})
-	obj["user"] = user
+	obj["session"] = map[string]string{
+		"user": user,
+	}
 
 	switch path {
 	case "/data/proj.js":
