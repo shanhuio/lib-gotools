@@ -49,11 +49,15 @@ func (h *Handler) serve(c *context, path string) {
 		return
 	}
 
+	log.Println(path)
+
 	switch path {
 	case "/style.css":
 		h.serveFile(c, path)
 	case "/favicon.ico":
 		h.serveFile(c, "/assets/favicon.ico")
+	case "/signin.html":
+		h.serveFile(c, "/signin.html")
 
 	case "/github/signin":
 		c.redirect(h.gh.signInURL())
@@ -82,10 +86,12 @@ func (h *Handler) serve(c *context, path string) {
 		sessionStr := c.readCookie("session")
 		ok, session := h.sessions.Check(sessionStr)
 		if !ok {
+			log.Println("session check faild")
 			c.clearCookie("session")
-			h.serveFile(c, "/signin.html")
+			c.redirect("/signin.html")
 			return
 		}
+		log.Println("session check passed")
 
 		user := session.User
 		if !h.hasUser(user) {
