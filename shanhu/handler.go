@@ -3,10 +3,9 @@ package shanhu
 import (
 	"encoding/json"
 	"fmt"
-	"io"
+	"html/template"
 	"log"
 	"net/http"
-	"os"
 	"strings"
 )
 
@@ -43,17 +42,16 @@ func (h *Handler) serveFile(c *context, p string) {
 	h.fs.ServeHTTP(c.w, c.req)
 }
 
-func (h *Handler) servePage(c *context, p string) {
-	f, err := os.Open(p)
+func (h *Handler) servePage(c *context, p string, dat interface{}) {
+	t, err := template.ParseFiles(p)
 	if err != nil {
 		log.Println(err)
 		http.Error(c.w, "page not found", 404)
 		return
 	}
-
-	defer f.Close()
-	if _, err := io.Copy(c.w, f); err != nil {
+	if err := t.Execute(c.w, dat); err != nil {
 		log.Println(err)
+		return
 	}
 }
 
@@ -108,7 +106,7 @@ func (h *Handler) serve(c *context, path string) {
 		if !ok {
 			log.Println("session check faild")
 			c.clearCookie("session")
-			h.servePage(c, "_/signin.html")
+			h.servePage(c, "_/signin.html", nil)
 			return
 		}
 		log.Println("session check passed")
@@ -135,9 +133,14 @@ func (h *Handler) serveUser(c *context, user, path string) {
 
 	switch path {
 	case "/proj.html", "/":
-		h.servePage(c, "_/proj.html")
+		var dat struct {
+			User string
+		}
+		dat.User = user
+		h.servePage(c, "_/proj.html", &dat)
 	case "/file.html":
-		h.servePage(c, "_/file.html")
+		var dat struct{}
+		h.servePage(c, "_/file.html", &dat)
 
 	default:
 		http.Error(c.w, "File not found.", 404)
@@ -156,13 +159,10 @@ func serveJsVar(w http.ResponseWriter, v interface{}) {
 
 func (h *Handler) serveData(c *context, user, path string) {
 	obj := make(map[string]interface{})
-	obj["session"] = map[string]string{
-		"user": user,
-	}
 
 	switch path {
 	case "/data/proj.js":
-		obj["proj"] = nil
+
 	default:
 		http.Error(c.w, "Invalid data request.", 404)
 		return
