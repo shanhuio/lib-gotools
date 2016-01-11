@@ -17,7 +17,7 @@ type gitHub struct {
 }
 
 func newGitHub(id, secret string, key []byte) *gitHub {
-	const ttl time.Duration = time.Minute
+	const ttl time.Duration = time.Hour
 	return &gitHub{
 		config: &oauth2.Config{
 			ClientID:     id,
