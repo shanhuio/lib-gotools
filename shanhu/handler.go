@@ -3,10 +3,8 @@ package shanhu
 import (
 	"encoding/json"
 	"fmt"
-	"io"
 	"log"
 	"net/http"
-	"os"
 	"strings"
 )
 
@@ -16,6 +14,8 @@ type Handler struct {
 	gh       *gitHub
 	sessions *sessionStore
 	users    map[string]bool
+
+	fs http.Handler
 }
 
 // NewHandler creates a new http handler.
@@ -32,41 +32,28 @@ func NewHandler(c *Config) (*Handler, error) {
 		gh:       gh,
 		sessions: newSessionStore([]byte(c.SessionKey)),
 		users:    users,
+		fs:       http.FileServer(http.Dir("_")),
 	}, nil
 }
 
-func serveFile(w http.ResponseWriter, file string) {
-	f, err := os.Open(file)
-	if os.IsNotExist(err) {
-		http.Error(w, "File not found.", 404)
-		return
-	}
-
-	if err != nil {
-		log.Println(err)
-		return
-	}
-
-	defer f.Close()
-	if _, err := io.Copy(w, f); err != nil {
-		log.Println(err)
-	}
+func (h *Handler) serveFile(c *context, p string) {
+	c.req.URL.Path = p
+	h.fs.ServeHTTP(c.w, c.req)
 }
 
 func (h *Handler) hasUser(u string) bool { return h.users[u] }
 
 func (h *Handler) serve(c *context, path string) {
 	if strings.HasPrefix(path, "/assets/") {
-		serveFile(c.w, "_"+path)
+		h.serveFile(c, path)
 		return
 	}
 
 	switch path {
-	case "/favicon.ico":
-		serveFile(c.w, "_/assets/favicon.ico")
 	case "/style.css":
-		c.w.Header().Set("Content-Type", "text/css")
-		serveFile(c.w, "_/style.css")
+		h.serveFile(c, path)
+	case "/favicon.ico":
+		h.serveFile(c, "/assets/favicon.ico")
 
 	case "/github/signin":
 		c.redirect(h.gh.signInURL())
@@ -96,7 +83,7 @@ func (h *Handler) serve(c *context, path string) {
 		ok, session := h.sessions.Check(sessionStr)
 		if !ok {
 			c.clearCookie("session")
-			serveFile(c.w, "_/signin.html")
+			h.serveFile(c, "/signin.html")
 			return
 		}
 
@@ -122,16 +109,16 @@ func (h *Handler) serveUser(c *context, user, path string) {
 
 	switch path {
 	case "/proj.html", "/":
-		serveFile(c.w, "_/proj.html")
+		h.serveFile(c, "/proj.html")
 	case "/file.html":
-		serveFile(c.w, "_/file.html")
+		h.serveFile(c, path)
 
 	case "/js/proj.js":
-		serveFile(c.w, "_/proj.js")
+		h.serveFile(c, "/proj.js")
 	case "/js/file.js":
-		serveFile(c.w, "_/file.js")
+		h.serveFile(c, "/file.js")
 	case "/shanhu.js":
-		serveFile(c.w, "_/shanhu.js")
+		h.serveFile(c, "/shanhu.js")
 
 	default:
 		http.Error(c.w, "File not found.", 404)
