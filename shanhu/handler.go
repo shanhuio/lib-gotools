@@ -3,8 +3,10 @@ package shanhu
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 )
 
@@ -41,10 +43,28 @@ func (h *Handler) serveFile(c *context, p string) {
 	h.fs.ServeHTTP(c.w, c.req)
 }
 
+func (h *Handler) servePage(c *context, p string) {
+	f, err := os.Open(p)
+	if err != nil {
+		log.Println(err)
+		http.Error(c.w, "page not found", 404)
+		return
+	}
+
+	defer f.Close()
+	if _, err := io.Copy(c.w, f); err != nil {
+		log.Println(err)
+	}
+}
+
 func (h *Handler) hasUser(u string) bool { return h.users[u] }
 
 func (h *Handler) serve(c *context, path string) {
 	if strings.HasPrefix(path, "/assets/") {
+		h.serveFile(c, path)
+		return
+	}
+	if strings.HasPrefix(path, "/js/") {
 		h.serveFile(c, path)
 		return
 	}
@@ -88,7 +108,7 @@ func (h *Handler) serve(c *context, path string) {
 		if !ok {
 			log.Println("session check faild")
 			c.clearCookie("session")
-			c.redirect("/signin.html")
+			h.servePage(c, "_/signin.html")
 			return
 		}
 		log.Println("session check passed")
@@ -115,16 +135,9 @@ func (h *Handler) serveUser(c *context, user, path string) {
 
 	switch path {
 	case "/proj.html", "/":
-		h.serveFile(c, "/proj.html")
+		h.servePage(c, "_/proj.html")
 	case "/file.html":
-		h.serveFile(c, path)
-
-	case "/js/proj.js":
-		h.serveFile(c, "/proj.js")
-	case "/js/file.js":
-		h.serveFile(c, "/file.js")
-	case "/shanhu.js":
-		h.serveFile(c, "/shanhu.js")
+		h.servePage(c, "_/file.html")
 
 	default:
 		http.Error(c.w, "File not found.", 404)
