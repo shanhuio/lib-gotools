@@ -27,7 +27,7 @@ func Create(f string) error {
 			repo text,
 			build text primary key,
 			lang text,
-			struct text
+			struct blob
 		);
 	`)
 
@@ -38,10 +38,9 @@ func Create(f string) error {
 	`)
 
 	q(` create table files (
-			repo text,
-			build text primary key,
-			file text,
-			content text
+			build text,
+			file text primary key,
+			content blob
 		);
 	`)
 
