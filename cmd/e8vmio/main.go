@@ -22,6 +22,7 @@ func main() {
 	for sub, repo := range map[string]string{
 		"e8vm":  "https://github.com/e8vm/e8vm",
 		"tools": "https://github.com/e8vm/tools",
+		"shanhu": "https://github.com/e8vm/shanhu",
 	} {
 		http.Handle(route(sub), goimp.NewGitRepo(path(sub), repo))
 	}
