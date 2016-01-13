@@ -7,6 +7,8 @@ import (
 	"log"
 	"net/http"
 	"strings"
+
+	"e8vm.io/tools/repodb"
 )
 
 // Handler is the http handler for shanhu.io website
@@ -15,12 +17,23 @@ type Handler struct {
 	gh       *gitHub
 	sessions *sessionStore
 	users    map[string]bool
+	db       *repodb.RepoDB
 
 	fs http.Handler
 }
 
 // NewHandler creates a new http handler.
 func NewHandler(c *Config) (*Handler, error) {
+	dbPath := c.DB
+	if dbPath == "" {
+		dbPath = "shanhu.db"
+	}
+
+	db, err := repodb.Open(dbPath)
+	if err != nil {
+		return nil, err
+	}
+
 	gh := newGitHub(c.GitHubAppID, c.GitHubAppSecret, []byte(c.StateKey))
 
 	users := make(map[string]bool)
@@ -28,11 +41,14 @@ func NewHandler(c *Config) (*Handler, error) {
 		users[u] = true
 	}
 
+	sessions := newSessionStore([]byte(c.SessionKey))
+
 	return &Handler{
 		c:        c,
 		gh:       gh,
-		sessions: newSessionStore([]byte(c.SessionKey)),
+		sessions: sessions,
 		users:    users,
+		db:       db,
 		fs:       http.FileServer(http.Dir("_")),
 	}, nil
 }
@@ -133,17 +149,16 @@ func (h *Handler) serveUser(c *context, user, path string) {
 
 	switch path {
 	case "/proj.html", "/":
-		var dat struct {
-			User string
-			Proj template.JS
+		dat, err := projDat(h.db, c, user, path)
+		if err != nil {
+			log.Println(err)
+			http.Error(c.w, "project loading failed", 404)
+			return
 		}
-		dat.User = user
-		dat.Proj = template.JS("{}")
-		h.servePage(c, "_/proj.html", &dat)
+		h.servePage(c, "_/proj.html", dat)
 	case "/file.html":
 		var dat struct{}
 		h.servePage(c, "_/file.html", &dat)
-
 	default:
 		http.Error(c.w, "File not found.", 404)
 	}

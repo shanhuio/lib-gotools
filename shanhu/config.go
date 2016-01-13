@@ -7,6 +7,7 @@ import (
 
 // Config contains the configuration of the website
 type Config struct {
+	DB              string
 	GitHubAppID     string
 	GitHubAppSecret string
 	StateKey        string

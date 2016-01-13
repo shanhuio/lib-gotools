@@ -6,7 +6,14 @@ type Build struct {
 	Build string
 	Lang  string
 
-	// Jsonable structures.
 	Struct interface{}
 	Files  map[string]interface{}
+}
+
+// LatestBuild is a structure for saving the latest build of a repo.
+type LatestBuild struct {
+	Repo   string
+	Build  string
+	Lang   string
+	Struct []byte
 }

@@ -30,6 +30,10 @@ func (db *RepoDB) x(q string, args ...interface{}) (sql.Result, error) {
 	return res, qerr(q, err)
 }
 
+func (db *RepoDB) q1(q string, args ...interface{}) *sql.Row {
+	return db.db.QueryRow(q, args...)
+}
+
 func jsonBytes(v interface{}) []byte {
 	bs, err := json.Marshal(v)
 	if err != nil {
@@ -94,4 +98,31 @@ func (db *RepoDB) Add(b *Build) error {
 	}
 
 	return nil
+}
+
+// LatestBuild replies the latest build of a repo
+func (db *RepoDB) LatestBuild(repo string) (*LatestBuild, error) {
+	db.mu.Lock()
+	defer db.mu.Unlock()
+
+	q := `select builds.build, builds.lang, builds.struct
+		from builds, latest_builds
+		where latest_builds.repo = ?
+		and latest_builds.build = builds.build;`
+
+	row := db.q1(q, repo)
+
+	var build, lang string
+	var structure []byte
+	err := row.Scan(&build, &lang, &structure)
+	if err != nil {
+		return nil, qerr(q, err)
+	}
+
+	return &LatestBuild{
+		Repo:   repo,
+		Build:  build,
+		Lang:   lang,
+		Struct: structure,
+	}, nil
 }
