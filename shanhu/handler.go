@@ -135,8 +135,10 @@ func (h *Handler) serveUser(c *context, user, path string) {
 	case "/proj.html", "/":
 		var dat struct {
 			User string
+			Proj template.JS
 		}
 		dat.User = user
+		dat.Proj = template.JS("{}")
 		h.servePage(c, "_/proj.html", &dat)
 	case "/file.html":
 		var dat struct{}
