@@ -85,7 +85,7 @@ func (db *RepoDB) Add(b *Build) error {
 	}
 
 	_, err = db.x(`
-		insert into latest_builds (repo, build)
+		insert or replace into latest_builds (repo, build)
 		values (?, ?);`,
 		b.Name, b.Build,
 	)
