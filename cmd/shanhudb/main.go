@@ -39,7 +39,7 @@ func main() {
 		if err := db.Add(b); err != nil {
 			log.Fatal(err)
 		}
-		log.Print("%s : %s added into %s", b.Name, b.Build, *dbPath)
+		log.Printf("%s : %s added into %s", b.Name, b.Build, *dbPath)
 
 	default:
 		log.Print("(did nothing)")
