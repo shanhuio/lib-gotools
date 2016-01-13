@@ -15,6 +15,12 @@ var (
 func main() {
 	flag.Parse()
 
+	hash, err := gorepo.GitCommit(*projPath)
+	if err != nil {
+		log.Print(err)
+	}
+	log.Print(hash)
+
 	errs := gorepo.Build(*projPath, os.Stdout)
 	for _, err := range errs {
 		log.Print(err)
