@@ -3,10 +3,11 @@ package gorepo
 import (
 	"go/build"
 	"os/exec"
+	"strings"
 )
 
-// GitCommit gets the head commit of the master branch.
-func GitCommit(path string) (string, error) {
+// GitCommitHash gets the head commit of the master branch.
+func GitCommitHash(path string) (string, error) {
 	pkg, err := build.Import(path, "", build.FindOnly)
 	if err != nil {
 		return "", err
@@ -20,5 +21,5 @@ func GitCommit(path string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return string(hash), nil
+	return strings.TrimSpace(string(hash)), nil
 }

@@ -15,6 +15,16 @@ type RepoDB struct {
 	mu sync.Mutex
 }
 
+// Open opens a repo database.
+func Open(path string) (*RepoDB, error) {
+	db, err := sql.Open("sqlite3", path)
+	if err != nil {
+		return nil, err
+	}
+
+	return &RepoDB{db: db}, nil
+}
+
 func (db *RepoDB) x(q string, args ...interface{}) (sql.Result, error) {
 	res, err := db.db.Exec(q, args...)
 	return res, qerr(q, err)
@@ -43,7 +53,7 @@ func validBuildName(name string) bool {
 
 // Add adds a build of a repo into the database. It should use a unique hash
 // for the build field to unqiuely identify the build.
-func (db *RepoDB) Add(b *RepoBuild) error {
+func (db *RepoDB) Add(b *Build) error {
 	if !validBuildName(b.Build) {
 		return fmt.Errorf("invalid build name: %q", b.Build)
 	}

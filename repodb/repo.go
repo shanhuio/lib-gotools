@@ -1,7 +1,7 @@
 package repodb
 
-// RepoBuild is a build of a repository.
-type RepoBuild struct {
+// Build is a build of a repository.
+type Build struct {
 	Name  string
 	Build string
 	Lang  string

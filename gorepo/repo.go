@@ -1,13 +1,12 @@
 package gorepo
 
 import (
-	"encoding/json"
-	"io"
 	"path/filepath"
 
 	"e8vm.io/e8vm/dagvis"
 	"e8vm.io/tools/godep"
 	"e8vm.io/tools/goload"
+	"e8vm.io/tools/repodb"
 )
 
 type repo struct {
@@ -76,11 +75,17 @@ func (r *repo) fileDeps() (map[string]interface{}, []error) {
 	return ret, errs
 }
 
-// Build builds a repo and writes the output via writer w.
-func Build(path string, w io.Writer) []error {
+// Build builds a repo into a repo build.
+func Build(path string) (*repodb.Build, []error) {
+	// this will also check if it is in a git repo
+	buildHash, err := GitCommitHash(path)
+	if err != nil {
+		return nil, []error{err}
+	}
+
 	r, err := newRepo(path)
 	if err != nil {
-		return []error{err}
+		return nil, []error{err}
 	}
 
 	var deps struct {
@@ -90,18 +95,19 @@ func Build(path string, w io.Writer) []error {
 
 	deps.Pkgs, err = r.pkgDeps()
 	if err != nil {
-		return []error{err}
+		return nil, []error{err}
 	}
 
 	var errs []error
 	deps.Files, errs = r.fileDeps()
 	if err != nil {
-		return errs
+		return nil, errs
 	}
 
-	enc := json.NewEncoder(w)
-	if err := enc.Encode(deps); err != nil {
-		return []error{err}
-	}
-	return nil
+	return &repodb.Build{
+		Name:   path,
+		Build:  buildHash,
+		Lang:   "go",
+		Struct: deps,
+	}, nil
 }

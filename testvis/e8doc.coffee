@@ -60,7 +60,7 @@ createDAG = (svg, dag, onclick) ->
 
     paths = []
     for node, dat of dag
-        for output in dat.outs
+        for output in dat.o
             paths.push({n:esc(node)+"-"+esc(output)})
 
     for path in paths
@@ -83,7 +83,7 @@ createDAG = (svg, dag, onclick) ->
             boxin = "box in2"
             depin = "dep in2"
 
-        for input in dag[name].ins
+        for input in dag[name].i
             svg.select(boxof(input)).attr("class", boxin)
             svg.select(pathof(input, name)).attr("class", depin)
             lightIns(input, false)
@@ -97,7 +97,7 @@ createDAG = (svg, dag, onclick) ->
             boxout = "box out2"
             depout = "dep out2"
 
-        for output in dag[name].outs
+        for output in dag[name].o
             svg.select(boxof(output)).attr("class", boxout)
             svg.select(pathof(name, output)).attr("class", depout)
             lightOuts(output, false)
@@ -155,7 +155,7 @@ drawDAG = (svg, dag) ->
 
     paths = []
     for node, dat of dag
-        for output in dat.outs
+        for output in dat.o
             toNode = dag[output]
 
             fromx = dat.x * xgrid+boxWidth
@@ -190,19 +190,19 @@ drawDAG = (svg, dag) ->
         ymid = ytop + boxHeight / 2
         points = ""
 
-        if dat.ins.length == 0 and dat.outs.length == 0
+        if dat.i.length == 0 and dat.o.length == 0
             points = points + xleft + "," + ytop + " "
             points = points + xleft + "," + ybottom + " "
             points = points + xright + "," + ybottom + " "
             points = points + xright + "," + ytop
-        else if dat.ins.length == 0
+        else if dat.i.length == 0
             xright = xright - t / 2
             points = points + xleft + "," + ytop + " "
             points = points + xleft + "," + ybottom + " "
             points = points + xright + "," + ybottom + " "
             points = points + (xright + t) + "," + ymid + " "
             points = points + xright + "," + ytop
-        else if dat.outs.length == 0
+        else if dat.o.length == 0
             xleft = xleft + t / 2
             points = points + xleft + "," + ytop + " "
             points = points + (xleft - t) + "," + ymid + " "

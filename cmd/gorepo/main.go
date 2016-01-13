@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
 	"log"
 	"os"
@@ -15,14 +16,22 @@ var (
 func main() {
 	flag.Parse()
 
-	hash, err := gorepo.GitCommit(*projPath)
+	hash, err := gorepo.GitCommitHash(*projPath)
 	if err != nil {
 		log.Print(err)
 	}
 	log.Print(hash)
 
-	errs := gorepo.Build(*projPath, os.Stdout)
+	b, errs := gorepo.Build(*projPath)
 	for _, err := range errs {
 		log.Print(err)
+	}
+	if len(errs) > 0 {
+		log.Fatal("building failed")
+	}
+
+	enc := json.NewEncoder(os.Stdout)
+	if err := enc.Encode(b.Struct); err != nil {
+		log.Fatal(err)
 	}
 }
