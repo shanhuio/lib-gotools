@@ -24,23 +24,23 @@ func Create(f string) error {
 	}
 
 	q(` create table builds (
-			repo text,
-			build text primary key,
-			lang text,
-			struct blob
+			repo text not null,
+			build text primary key not null,
+			lang text not null,
+			struct blob not null
 		);
 	`)
 
 	q(` create table latest_builds (
-			repo text primary key,
-			build text
+			repo text primary key not null,
+			build text not null
 		);
 	`)
 
 	q(` create table files (
-			build text,
-			file text primary key,
-			content blob
+			build text not null,
+			file text primary key not null,
+			content blob not null
 		);
 	`)
 
