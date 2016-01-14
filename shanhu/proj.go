@@ -8,9 +8,9 @@ import (
 
 func repoFromPath(path string) string {
 	switch path {
-	case "/", "/e8vm":
+	case "/", "/e8vm/e8vm":
 		return "e8vm.io/e8vm"
-	case "/tools":
+	case "/e8vm/tools":
 		return "e8vm.io/tools"
 	}
 	return "e8vm.io/e8vm"
@@ -26,12 +26,15 @@ func projDat(db *repodb.RepoDB, c *context, user, path string) (
 		return nil, err
 	}
 
-	var dat struct {
+	type d struct {
+		Repo string
 		User string
 		Proj template.JS
 	}
-	dat.User = user
-	dat.Proj = template.JS(string(b.Struct))
 
-	return &dat, nil
+	return &d{
+		Repo: repo,
+		User: user,
+		Proj: template.JS(string(b.Struct)),
+	}, nil
 }

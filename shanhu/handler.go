@@ -148,7 +148,7 @@ func (h *Handler) serveUser(c *context, user, path string) {
 	}
 
 	switch path {
-	case "/proj.html", "/":
+	case "/", "/e8vm/e8vm", "/e8vm/tools":
 		dat, err := projDat(h.db, c, user, path)
 		if err != nil {
 			log.Println(err)
