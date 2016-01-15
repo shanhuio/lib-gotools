@@ -137,7 +137,7 @@ func (h *Handler) serve(c *context, path string) {
 			c.clearCookie("session")
 			msg := fmt.Sprintf("user %q not authorized, " +
 				"please contact liulonnie@gmail.com.")
-            log.Println(msg)
+			log.Println(msg)
 			http.Error(c.w, msg, 403)
 			return
 		}
