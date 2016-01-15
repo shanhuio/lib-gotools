@@ -153,6 +153,7 @@ func (h *Handler) serveUser(c *context, user, path string) {
 		return
 	}
 
+	path = strings.TrimPrefix(path, "/")
 	_, dirs := pathSplit(path)
 
 	if len(dirs) <= 1 {

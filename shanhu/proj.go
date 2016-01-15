@@ -7,13 +7,10 @@ import (
 )
 
 func repoFromPath(path string) string {
-	switch path {
-	case "/", "/e8vm.io/e8vm":
+	if path == "" {
 		return "e8vm.io/e8vm"
-	case "/e8vm.io/tools":
-		return "e8vm.io/tools"
 	}
-	return "e8vm.io/e8vm"
+	return path
 }
 
 func projDat(db *repodb.RepoDB, c *context, user, path string) (
