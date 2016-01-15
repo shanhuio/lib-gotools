@@ -39,10 +39,12 @@ func Create(f string) error {
 
 	q(` create table files (
 			build text not null,
-			file text primary key not null,
+			file text not null,
 			content blob not null
 		);
 	`)
+
+	q(`create index file_index on files (build, file);`)
 
 	return err
 }

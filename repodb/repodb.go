@@ -79,7 +79,7 @@ func (db *RepoDB) Add(b *Build) error {
 		_, err := db.x(`
 			insert into files
 			(build, file, content)
-			values (?, ?, ?, ?)`,
+			values (?, ?, ?)`,
 			b.Build, f, jsonBytes(content),
 		)
 		if err != nil {
@@ -132,7 +132,7 @@ func (db *RepoDB) LatestFile(repo, path string) (*LatestFile, error) {
 	defer db.mu.Unlock()
 
 	q := `select files.content, files.build from
-		builds, latest_builds
+		files, latest_builds
 		where latest_builds.repo = ?
 		and latest_builds.build = files.build
 		and files.file = ?`

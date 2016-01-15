@@ -26,25 +26,20 @@ func projDat(db *repodb.RepoDB, user, path string) (
 	repoUser, dirs := pathSplit(repo)
 
 	type d struct {
+		User     string
 		Repo     string
 		RepoUser string
 		Dirs     []string
-		User     string
 		Commit   string
 		Proj     template.JS
 	}
 
-	commit := b.Build
-	if len(commit) > 7 {
-		commit = commit[:7]
-	}
-
 	return &d{
+		User:     user,
 		Repo:     repo,
 		RepoUser: repoUser,
 		Dirs:     dirs,
-		User:     user,
-		Commit:   commit,
+		Commit:   shortCommit(b.Build),
 		Proj:     template.JS(string(b.Struct)),
 	}, nil
 }

@@ -4,6 +4,13 @@ import (
 	"strings"
 )
 
+func shortCommit(commit string) string {
+	if len(commit) > 7 {
+		return commit[:7]
+	}
+	return commit
+}
+
 func pathSplit(p string) (string, []string) {
 	subs := strings.Split(p, "/")
 	switch len(subs) {
