@@ -18,6 +18,7 @@ type Handler struct {
 	sessions *sessionStore
 	users    map[string]bool
 	db       *repodb.RepoDB
+	hook     *hook
 
 	fs http.Handler
 }
@@ -49,6 +50,7 @@ func NewHandler(c *Config) (*Handler, error) {
 		sessions: sessions,
 		users:    users,
 		db:       db,
+		hook:     newHook(),
 		fs:       http.FileServer(http.Dir("_")),
 	}, nil
 }
@@ -93,6 +95,8 @@ func (h *Handler) serve(c *context, path string) {
 	case "/signin.html":
 		h.serveFile(c, "/signin.html")
 
+	case "/github/hook":
+		h.hook.ServeHTTP(c.w, c.req)
 	case "/github/signin":
 		c.redirect(h.gh.signInURL())
 	case "/github/callback":
