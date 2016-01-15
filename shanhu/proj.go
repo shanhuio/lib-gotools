@@ -2,7 +2,6 @@ package shanhu
 
 import (
 	"html/template"
-	"strings"
 
 	"e8vm.io/tools/repodb"
 )
@@ -15,18 +14,6 @@ func repoFromPath(path string) string {
 		return "e8vm.io/tools"
 	}
 	return "e8vm.io/e8vm"
-}
-
-func pathSplit(p string) (string, []string) {
-	subs := strings.Split(p, "/")
-	switch len(subs) {
-	case 0:
-		return "", nil
-	case 1:
-		return subs[0], nil
-	default:
-		return subs[0], subs[1:]
-	}
 }
 
 func projDat(db *repodb.RepoDB, c *context, user, path string) (

@@ -63,7 +63,7 @@ type writer struct {
 	line int
 }
 
-func fileHTML(f *file, dmap *defMap) ([]byte, error) {
+func fileHTML(f *file, dmap *defMap) ([]byte, int, error) {
 	w := newWriter()
 	return w.file(f, dmap)
 }
@@ -183,14 +183,13 @@ func (w *writer) generate(dmap *defMap) {
 	}
 }
 
-func (w *writer) file(f *file, dmap *defMap) ([]byte, error) {
+func (w *writer) file(f *file, dmap *defMap) ([]byte, int, error) {
 	e := w.initFile(f)
 	if e != nil {
-		return nil, e
+		return nil, 0, e
 	}
 
 	w.generate(dmap)
 
-	ret := w.out.Bytes()
-	return ret, nil
+	return w.out.Bytes(), w.line, nil
 }

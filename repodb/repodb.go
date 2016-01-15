@@ -80,8 +80,7 @@ func (db *RepoDB) Add(b *Build) error {
 			insert into files
 			(build, file, content)
 			values (?, ?, ?, ?)`,
-			b.Build, fmt.Sprintf("%s:%s", b.Build, f),
-			jsonBytes(content),
+			b.Build, f, jsonBytes(content),
 		)
 		if err != nil {
 			return err
@@ -124,5 +123,31 @@ func (db *RepoDB) LatestBuild(repo string) (*LatestBuild, error) {
 		Build:  build,
 		Lang:   lang,
 		Struct: structure,
+	}, nil
+}
+
+// LatestFile replies the particular file in the lastest build of a repo.
+func (db *RepoDB) LatestFile(repo, path string) (*LatestFile, error) {
+	db.mu.Lock()
+	defer db.mu.Unlock()
+
+	q := `select files.content, files.build from
+		builds, latest_builds
+		where latest_builds.repo = ?
+		and latest_builds.build = files.build
+		and files.file = ?`
+	row := db.q1(q, repo, path)
+	var build string
+	var ret []byte
+	err := row.Scan(&ret, &build)
+	if err != nil {
+		return nil, qerr(q, err)
+	}
+
+	return &LatestFile{
+		Repo:    repo,
+		Path:    path,
+		Build:   build,
+		Content: ret,
 	}, nil
 }

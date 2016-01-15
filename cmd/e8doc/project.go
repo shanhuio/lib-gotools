@@ -63,7 +63,7 @@ func (p *project) build() {
 	pkgDep := p.buildPkgDep(pkgs)
 
 	var fileDeps map[string]interface{}
-	var files map[string][]byte
+	var files map[string]*goview.File
 
 	prog, e := goload.Pkgs(pkgs)
 	if !p.err(e) {
@@ -83,12 +83,12 @@ func (p *project) build() {
 		p.setPage(pkg, p.jsonObj(dep))
 	}
 
-	for path, bs := range files {
+	for path, f := range files {
 		path, e := p.trimPath(path)
 		if p.err(e) {
 			continue
 		}
-		p.setPage(path, bs)
+		p.setPage(path, f.HTML)
 	}
 
 	for _, e := range p.errs {

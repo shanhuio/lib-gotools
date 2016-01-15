@@ -153,8 +153,9 @@ func (h *Handler) serveUser(c *context, user, path string) {
 		return
 	}
 
-	switch path {
-	case "/", "/e8vm.io/e8vm", "/e8vm.io/tools":
+	_, dirs := pathSplit(path)
+
+	if len(dirs) <= 1 {
 		dat, err := projDat(h.db, c, user, path)
 		if err != nil {
 			log.Println(err)
@@ -162,11 +163,9 @@ func (h *Handler) serveUser(c *context, user, path string) {
 			return
 		}
 		h.servePage(c, "_/proj.html", dat)
-	case "/file.html":
+	} else {
 		var dat struct{}
 		h.servePage(c, "_/file.html", &dat)
-	default:
-		http.Error(c.w, "File not found.", 404)
 	}
 }
 

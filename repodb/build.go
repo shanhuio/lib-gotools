@@ -17,3 +17,11 @@ type LatestBuild struct {
 	Lang   string
 	Struct []byte
 }
+
+// LatestFile is a structure for saving the lastest file of a repo.
+type LatestFile struct {
+	Repo    string
+	Path    string
+	Build   string
+	Content []byte
+}

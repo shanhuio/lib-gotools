@@ -7,11 +7,17 @@ import (
 	"e8vm.io/tools/goload"
 )
 
+// File saves the rendering of a file.
+type File struct {
+	HTML  []byte `json:"c"`
+	Nline int    `json:"n"`
+}
+
 // Files generates the rendered files for a loaded program
-func Files(prog *goload.Program) (map[string][]byte, []error) {
+func Files(prog *goload.Program) (map[string]*File, []error) {
 	fset := prog.Fset
 
-	ret := make(map[string][]byte)
+	ret := make(map[string]*File)
 	var errs []error
 
 	for _, p := range prog.Pkgs {
@@ -21,7 +27,7 @@ func Files(prog *goload.Program) (map[string][]byte, []error) {
 			name := tokFile.Name()
 			view := newFile(tokFile, name)
 
-			bs, e := fileHTML(view, nil) //TODO: add def map
+			bs, nline, e := fileHTML(view, nil) // TODO: add def map
 			if e != nil {
 				log.Println(e)
 				errs = append(errs, e)
@@ -30,7 +36,7 @@ func Files(prog *goload.Program) (map[string][]byte, []error) {
 
 			base := filepath.Base(name)
 			path := filepath.Join(p, base)
-			ret[path] = bs
+			ret[path] = &File{bs, nline}
 		}
 	}
 
