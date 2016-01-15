@@ -1,6 +1,7 @@
 package gorepo
 
 import (
+	"fmt"
 	"path/filepath"
 
 	"e8vm.io/e8vm/dagvis"
@@ -115,7 +116,7 @@ func Build(path string) (*repodb.Build, []error) {
 // UpdateDB updates the repository in the database.
 func UpdateDB(db *repodb.RepoDB, path string) []error {
 	if err := GitPull(path); err != nil {
-		return []error{err}
+		return []error{fmt.Errorf("git pull: %s", err)}
 	}
 
 	b, errs := Build(path)
