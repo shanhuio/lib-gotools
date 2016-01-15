@@ -8,6 +8,7 @@ Tools for processing Golang code in E8VM project:
 - Check file sizes.
 - Building E8VM website.
 - Web servers.
+- Github hooks.
 
 ```
 go get e8vm.io/tools
