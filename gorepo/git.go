@@ -6,13 +6,20 @@ import (
 	"strings"
 )
 
-// GitCommitHash gets the head commit of the master branch.
-func GitCommitHash(path string) (string, error) {
+func repoSrcPath(path string) (string, error) {
 	pkg, err := build.Import(path, "", build.FindOnly)
 	if err != nil {
 		return "", err
 	}
-	srcPath := pkg.Dir
+	return pkg.Dir, nil
+}
+
+// GitCommitHash gets the head commit of the master branch.
+func GitCommitHash(path string) (string, error) {
+	srcPath, err := repoSrcPath(path)
+	if err != nil {
+		return "", err
+	}
 
 	cmd := exec.Command("git", "show", "-s", "--format=%H")
 	cmd.Dir = srcPath
@@ -22,4 +29,16 @@ func GitCommitHash(path string) (string, error) {
 		return "", err
 	}
 	return strings.TrimSpace(string(hash)), nil
+}
+
+// GitPull runs "git pull" in the repository
+func GitPull(path string) error {
+	srcPath, err := repoSrcPath(path)
+	if err != nil {
+		return err
+	}
+
+	cmd := exec.Command("git", "pull")
+	cmd.Dir = srcPath
+	return cmd.Run()
 }

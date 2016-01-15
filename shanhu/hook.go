@@ -6,15 +6,20 @@ import (
 	"log"
 	"net/http"
 	"time"
+
+	"e8vm.io/tools/gorepo"
+	"e8vm.io/tools/repodb"
 )
 
 type hook struct {
 	req chan string
+	db  *repodb.RepoDB
 }
 
-func newHook() *hook {
+func newHook(db *repodb.RepoDB) *hook {
 	ret := &hook{
 		req: make(chan string),
+		db:  db,
 	}
 
 	go ret.serve()
@@ -41,7 +46,11 @@ func (h *hook) serve() {
 }
 
 func (h *hook) update(p string) {
-	log.Printf("updating repo %s (fake)", p)
+	log.Printf("updating repo %s", p)
+	err := gorepo.UpdateDB(h.db, p)
+	if err != nil {
+		log.Println(err)
+	}
 }
 
 func mapRepoName(fullName string) string {

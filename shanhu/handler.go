@@ -50,7 +50,7 @@ func NewHandler(c *Config) (*Handler, error) {
 		sessions: sessions,
 		users:    users,
 		db:       db,
-		hook:     newHook(),
+		hook:     newHook(db),
 		fs:       http.FileServer(http.Dir("_")),
 	}, nil
 }

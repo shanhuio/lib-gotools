@@ -111,3 +111,21 @@ func Build(path string) (*repodb.Build, []error) {
 		Struct: deps,
 	}, nil
 }
+
+// UpdateDB updates the repository in the database.
+func UpdateDB(db *repodb.RepoDB, path string) []error {
+	if err := GitPull(path); err != nil {
+		return []error{err}
+	}
+
+	b, errs := Build(path)
+	if len(errs) > 0 {
+		return errs
+	}
+
+	err := db.Add(b)
+	if err != nil {
+		return []error{err}
+	}
+	return nil
+}
