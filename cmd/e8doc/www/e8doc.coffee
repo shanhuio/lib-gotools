@@ -26,7 +26,7 @@ reqPkgDep = ->
         if res.nerror != 0
             alert("error")
         else
-            dag = res.data.nodes
+            dag = res.data.n
             svg = d3.select("svg#canvas")
             redraw(svg, dag, (name) ->
                 n = name
@@ -53,7 +53,7 @@ reqFileDep = (pkg) ->
         if res.nerror != 0
             alert("error")
         else
-            dag = res.data.nodes
+            dag = res.data.n
             svg = d3.select("svg#canvas2")
             redraw(svg, dag, (name) ->
                 n = name
