@@ -7,6 +7,7 @@ import (
 	"e8vm.io/e8vm/dagvis"
 	"e8vm.io/tools/godep"
 	"e8vm.io/tools/goload"
+	"e8vm.io/tools/goview"
 	"e8vm.io/tools/repodb"
 )
 
@@ -76,6 +77,19 @@ func (r *repo) fileDeps() (map[string]interface{}, []error) {
 	return ret, errs
 }
 
+func (r *repo) files() (map[string]interface{}, []error) {
+	files, errs := goview.Files(r.prog)
+	if len(errs) > 0 {
+		return nil, errs
+	}
+
+	ret := make(map[string]interface{})
+	for path, f := range files {
+		ret[path] = f
+	}
+	return ret, nil
+}
+
 // Build builds a repo into a repo build.
 func Build(path string) (*repodb.Build, []error) {
 	// this will also check if it is in a git repo
@@ -101,7 +115,12 @@ func Build(path string) (*repodb.Build, []error) {
 
 	var errs []error
 	deps.Files, errs = r.fileDeps()
-	if err != nil {
+	if len(errs) > 0 {
+		return nil, errs
+	}
+
+	files, errs := r.files()
+	if len(errs) > 0 {
 		return nil, errs
 	}
 
@@ -110,6 +129,7 @@ func Build(path string) (*repodb.Build, []error) {
 		Build:  buildHash,
 		Lang:   "go",
 		Struct: deps,
+		Files:  files,
 	}, nil
 }
 
