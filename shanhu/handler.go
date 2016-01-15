@@ -157,7 +157,7 @@ func (h *Handler) serveUser(c *context, user, path string) {
 	_, dirs := pathSplit(path)
 
 	if len(dirs) <= 1 {
-		dat, err := projDat(h.db, c, user, path)
+		dat, err := projDat(h.db, user, path)
 		if err != nil {
 			log.Println(err)
 			http.Error(c.w, "project loading failed", 404)
@@ -165,8 +165,13 @@ func (h *Handler) serveUser(c *context, user, path string) {
 		}
 		h.servePage(c, "_/proj.html", dat)
 	} else {
-		var dat struct{}
-		h.servePage(c, "_/file.html", &dat)
+		dat, err := fileDat(h.db, user, path)
+		if err != nil {
+			log.Println(err)
+			http.Error(c.w, "file loading failed", 404)
+			return
+		}
+		h.servePage(c, "_/file.html", dat)
 	}
 }
 

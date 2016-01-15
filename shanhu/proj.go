@@ -13,7 +13,7 @@ func repoFromPath(path string) string {
 	return path
 }
 
-func projDat(db *repodb.RepoDB, c *context, user, path string) (
+func projDat(db *repodb.RepoDB, user, path string) (
 	interface{}, error,
 ) {
 	repo := repoFromPath(path)
