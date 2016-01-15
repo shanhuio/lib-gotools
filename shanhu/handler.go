@@ -124,7 +124,7 @@ func (h *Handler) serve(c *context, path string) {
 		sessionStr := c.readCookie("session")
 		ok, session := h.sessions.Check(sessionStr)
 		if !ok {
-			log.Println("session check faild")
+			log.Println("session check failed")
 			c.clearCookie("session")
 			h.servePage(c, "_/signin.html", nil)
 			return
