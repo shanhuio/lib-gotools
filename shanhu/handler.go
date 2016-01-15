@@ -129,13 +129,15 @@ func (h *Handler) serve(c *context, path string) {
 			h.servePage(c, "_/signin.html", nil)
 			return
 		}
-		log.Println("session check passed")
 
 		user := session.User
+		log.Printf("[%s] session check passed", user)
+
 		if !h.hasUser(user) {
 			c.clearCookie("session")
 			msg := fmt.Sprintf("user %q not authorized, " +
 				"please contact liulonnie@gmail.com.")
+            log.Println(msg)
 			http.Error(c.w, msg, 403)
 			return
 		}
