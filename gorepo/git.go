@@ -38,7 +38,7 @@ func GitPull(path string) error {
 		return err
 	}
 
-	cmd := exec.Command("git", "pull")
+	cmd := exec.Command("git", "pull", "origin", "master")
 	cmd.Dir = srcPath
 	return cmd.Run()
 }
