@@ -2,6 +2,7 @@ package goimp
 
 import (
 	"bytes"
+	"fmt"
 	"log"
 	"net/http"
 	"strings"
@@ -29,6 +30,15 @@ func NewGitRepo(path, repoAddr string) *Repo {
 		VCS:        "git",
 		VCSRoot:    repoAddr,
 	}
+}
+
+// MetaLine returns the HTML meta line that needs to be included in the
+// header of the page.
+func (r *Repo) MetaLine() string {
+	return fmt.Sprintf(
+		`<meta name="go-import" content="%s %s %s">`,
+		r.ImportRoot, r.VCS, r.VCSRoot,
+	)
 }
 
 func (r *Repo) ServeHTTP(w http.ResponseWriter, req *http.Request) {
