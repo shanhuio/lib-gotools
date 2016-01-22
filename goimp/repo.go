@@ -41,6 +41,11 @@ func (r *Repo) Meta() string {
 	)
 }
 
+// MetaContent returns the go-import meta content of the meta line.
+func (r *Repo) MetaContent() string {
+	return fmt.Sprintf("%s %s %s", r.ImportRoot, r.VCS, r.VCSRoot)
+}
+
 func (r *Repo) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	path := strings.TrimSuffix(host(r.ImportRoot)+req.URL.Path, "/")
 
