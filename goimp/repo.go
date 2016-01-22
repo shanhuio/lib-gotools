@@ -32,9 +32,9 @@ func NewGitRepo(path, repoAddr string) *Repo {
 	}
 }
 
-// MetaLine returns the HTML meta line that needs to be included in the
+// Meta returns the HTML meta line that needs to be included in the
 // header of the page.
-func (r *Repo) MetaLine() string {
+func (r *Repo) Meta() string {
 	return fmt.Sprintf(
 		`<meta name="go-import" content="%s %s %s">`,
 		r.ImportRoot, r.VCS, r.VCSRoot,
