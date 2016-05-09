@@ -47,7 +47,7 @@ func checkRectLoaded(prog *goload.Program, h, w int) []*lex8.Error {
 func main() {
 	path := flag.String("path", "e8vm.io/e8vm", "go pkg path to check")
 	textHeight := flag.Int("height", 300, "maximum height for a single file")
-	textWidth := flag.Int("width", 78, "maximum width for a single file")
+	textWidth := flag.Int("width", 80, "maximum width for a single file")
 
 	flag.Parse()
 
