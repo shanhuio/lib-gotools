@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"e8vm.io/e8vm/dagvis"
-	"e8vm.io/e8vm/lex8"
+	"e8vm.io/e8vm/lexing"
 	"e8vm.io/e8vm/textbox"
 	"e8vm.io/tools/godep"
 	"e8vm.io/tools/goload"
@@ -20,8 +20,8 @@ func errExit(e error) {
 	os.Exit(-1)
 }
 
-func checkRectLoaded(prog *goload.Program, h, w int) []*lex8.Error {
-	errs := lex8.NewErrorList()
+func checkRectLoaded(prog *goload.Program, h, w int) []*lexing.Error {
+	errs := lexing.NewErrorList()
 
 	fset := prog.Fset
 	for _, p := range prog.Pkgs {
@@ -30,12 +30,12 @@ func checkRectLoaded(prog *goload.Program, h, w int) []*lex8.Error {
 			tokFile := fset.File(astf.Pos())
 			name := tokFile.Name()
 			fin, e := os.Open(name)
-			if lex8.LogError(errs, e) {
+			if lexing.LogError(errs, e) {
 				continue
 			}
 
 			errs.AddAll(textbox.CheckRect(name, fin, h, w))
-			if lex8.LogError(errs, fin.Close()) {
+			if lexing.LogError(errs, fin.Close()) {
 				continue
 			}
 		}
