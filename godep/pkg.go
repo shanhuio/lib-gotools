@@ -8,7 +8,7 @@ import (
 	"go/build"
 	"golang.org/x/tools/go/buildutil"
 
-	"e8vm.io/e8vm/dagvis"
+	"shanhu.io/smlvm/dagvis"
 )
 
 func skipPkg(p string) bool {

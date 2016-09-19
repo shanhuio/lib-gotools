@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"os"
 
-	"e8vm.io/e8vm/dagvis"
-	"e8vm.io/e8vm/lexing"
-	"e8vm.io/e8vm/textbox"
-	"e8vm.io/tools/godep"
-	"e8vm.io/tools/goload"
+	"shanhu.io/smlvm/dagvis"
+	"shanhu.io/smlvm/lexing"
+	"shanhu.io/smlvm/textbox"
+	"shanhu.io/tools/godep"
+	"shanhu.io/tools/goload"
 )
 
 func errExit(e error) {

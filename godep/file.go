@@ -10,8 +10,8 @@ import (
 
 	"golang.org/x/tools/go/loader"
 
-	"e8vm.io/e8vm/dagvis"
-	"e8vm.io/tools/goload"
+	"shanhu.io/smlvm/dagvis"
+	"shanhu.io/tools/goload"
 )
 
 // filename returns a file node name for a file

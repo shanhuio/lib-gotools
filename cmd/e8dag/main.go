@@ -6,8 +6,8 @@ import (
 	"os"
 	"strings"
 
-	"e8vm.io/e8vm/dagvis"
-	"e8vm.io/tools/godep"
+	"shanhu.io/smlvm/dagvis"
+	"shanhu.io/tools/godep"
 )
 
 func ne(e error) {

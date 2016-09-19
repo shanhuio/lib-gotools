@@ -1,6 +1,6 @@
 sudo: false
 language: go
-go_import_path: e8vm.io/tools
+go_import_path: shanhu.io/tools
 
 go:
     - 1.6
@@ -12,5 +12,5 @@ install:
 script:
     - test -z `gofmt -s -l .`
     - go test ./...
-    - e8chk -path="e8vm.io/tools"
+    - e8chk -path="shanhu.io/tools"
     - golint ./...
