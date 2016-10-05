@@ -1,4 +1,4 @@
-[![BuildStatus](https://travis-ci.org/e8vm/tools.png?branch=master)](https://travis-ci.org/e8vm/tools)
+[![BuildStatus](https://travis-ci.org/shanhuio/tools.png?branch=master)](https://travis-ci.org/shanhuio/tools)
 
 # Tools
 
@@ -8,6 +8,6 @@ Tools for processing Golang code in Small VM project:
 - Check file sizes.
 
 ```
-go get shanhu.io/tools
+go get -u shanhu.io/tools
 ```
 
