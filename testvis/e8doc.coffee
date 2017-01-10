@@ -6,7 +6,7 @@ ygrid = 28
 boxHeight = 20
 
 main = ->
-    redraw(d3.select("svg#canvas"), dag.nodes, (name) ->
+    redraw(d3.select("svg#canvas"), dag.n, (name) ->
         return
     )
     return
@@ -46,7 +46,6 @@ reqFile = (pkg, f) ->
 
 redraw = (svg, dag, onclick) ->
     for name, node of dag
-        # console.log(name)
         node.name = name
         node.y = node.y / 2
     createDAG(svg, dag, onclick)
@@ -145,7 +144,6 @@ drawDAG = (svg, dag) ->
         if n > nameMaxLen
             nameMaxLen = n
     boxWidth = nameMaxLen * 6 + 10
-    console.log(boxWidth)
     if boxWidth < 50
         boxWidth = 50
     xgrid = boxWidth + 12
