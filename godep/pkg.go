@@ -27,6 +27,9 @@ func skipPkg(p string) bool {
 	if strings.HasPrefix(p, "cmd/") {
 		return true
 	}
+	if strings.HasPrefix(p, "vendor/") {
+		return true
+	}
 	return false
 }
 

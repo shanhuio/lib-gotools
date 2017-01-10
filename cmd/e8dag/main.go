@@ -33,11 +33,7 @@ func saveRevLayout(g *dagvis.Graph, f string) {
 	ne(e)
 }
 
-func main() {
-	std, e := godep.StdDep()
-	ne(e)
-	saveLayout(std, "dags/gostd.json")
-
+func e8dags() {
 	pkgs := []string{
 		"e8vm.io/tools/dagvis",
 		"e8vm.io/tools/godep",
@@ -63,4 +59,10 @@ func main() {
 
 		saveLayout(g, p)
 	}
+}
+
+func main() {
+	std, e := godep.StdDep()
+	ne(e)
+	saveLayout(std, "dags/gostd.json")
 }
