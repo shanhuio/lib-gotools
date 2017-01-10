@@ -3,6 +3,7 @@ var dag = {
     "w": 16,
     "n": {
         "archive/tar": {
+            "n": "archive/tar",
             "x": 12,
             "y": 14,
             "i": [
@@ -13,6 +14,7 @@ var dag = {
             "o": []
         },
         "archive/zip": {
+            "n": "archive/zip",
             "x": 12,
             "y": 32,
             "i": [
@@ -25,8 +27,9 @@ var dag = {
             "o": []
         },
         "bufio": {
+            "n": "bufio",
             "x": 8,
-            "y": 42,
+            "y": 40,
             "i": [
                 "bytes"
             ],
@@ -49,6 +52,7 @@ var dag = {
             ]
         },
         "bytes": {
+            "n": "bytes",
             "x": 7,
             "y": 31,
             "i": [
@@ -72,11 +76,11 @@ var dag = {
                 "regexp/syntax",
                 "text/scanner",
                 "text/tabwriter",
-                "text/template/parse",
-                "vendor/golang_org/x/net/http2/hpack"
+                "text/template/parse"
             ]
         },
         "compress/bzip2": {
+            "n": "compress/bzip2",
             "x": 9,
             "y": 17,
             "i": [
@@ -86,6 +90,7 @@ var dag = {
             "o": []
         },
         "compress/flate": {
+            "n": "compress/flate",
             "x": 11,
             "y": 22,
             "i": [
@@ -100,8 +105,9 @@ var dag = {
             ]
         },
         "compress/gzip": {
+            "n": "compress/gzip",
             "x": 12,
-            "y": 41,
+            "y": 42,
             "i": [
                 "compress/flate",
                 "encoding/binary",
@@ -112,6 +118,7 @@ var dag = {
             ]
         },
         "compress/lzw": {
+            "n": "compress/lzw",
             "x": 9,
             "y": 39,
             "i": [
@@ -123,8 +130,9 @@ var dag = {
             ]
         },
         "compress/zlib": {
+            "n": "compress/zlib",
             "x": 12,
-            "y": 43,
+            "y": 44,
             "i": [
                 "compress/flate",
                 "hash/adler32"
@@ -135,6 +143,7 @@ var dag = {
             ]
         },
         "container/heap": {
+            "n": "container/heap",
             "x": 12,
             "y": 2,
             "i": [
@@ -145,6 +154,7 @@ var dag = {
             ]
         },
         "container/list": {
+            "n": "container/list",
             "x": 11,
             "y": 5,
             "i": [],
@@ -153,12 +163,14 @@ var dag = {
             ]
         },
         "container/ring": {
+            "n": "container/ring",
             "x": 0,
             "y": 29,
             "i": [],
             "o": []
         },
         "context": {
+            "n": "context",
             "x": 9,
             "y": 13,
             "i": [
@@ -170,6 +182,7 @@ var dag = {
             ]
         },
         "crypto": {
+            "n": "crypto",
             "x": 8,
             "y": 36,
             "i": [
@@ -185,6 +198,7 @@ var dag = {
             ]
         },
         "crypto/aes": {
+            "n": "crypto/aes",
             "x": 8,
             "y": 20,
             "i": [
@@ -197,6 +211,7 @@ var dag = {
             ]
         },
         "crypto/cipher": {
+            "n": "crypto/cipher",
             "x": 7,
             "y": 21,
             "i": [
@@ -209,6 +224,7 @@ var dag = {
             ]
         },
         "crypto/des": {
+            "n": "crypto/des",
             "x": 10,
             "y": 11,
             "i": [
@@ -220,6 +236,7 @@ var dag = {
             ]
         },
         "crypto/dsa": {
+            "n": "crypto/dsa",
             "x": 10,
             "y": 47,
             "i": [
@@ -230,6 +247,7 @@ var dag = {
             ]
         },
         "crypto/ecdsa": {
+            "n": "crypto/ecdsa",
             "x": 10,
             "y": 38,
             "i": [
@@ -243,6 +261,7 @@ var dag = {
             ]
         },
         "crypto/elliptic": {
+            "n": "crypto/elliptic",
             "x": 9,
             "y": 43,
             "i": [
@@ -253,6 +272,7 @@ var dag = {
             ]
         },
         "crypto/hmac": {
+            "n": "crypto/hmac",
             "x": 11,
             "y": 17,
             "i": [
@@ -264,6 +284,7 @@ var dag = {
             ]
         },
         "crypto/md5": {
+            "n": "crypto/md5",
             "x": 10,
             "y": 49,
             "i": [
@@ -274,6 +295,7 @@ var dag = {
             ]
         },
         "crypto/rand": {
+            "n": "crypto/rand",
             "x": 9,
             "y": 34,
             "i": [
@@ -287,6 +309,7 @@ var dag = {
             ]
         },
         "crypto/rc4": {
+            "n": "crypto/rc4",
             "x": 11,
             "y": 9,
             "i": [
@@ -297,6 +320,7 @@ var dag = {
             ]
         },
         "crypto/rsa": {
+            "n": "crypto/rsa",
             "x": 10,
             "y": 43,
             "i": [
@@ -308,6 +332,7 @@ var dag = {
             ]
         },
         "crypto/sha1": {
+            "n": "crypto/sha1",
             "x": 10,
             "y": 51,
             "i": [
@@ -318,6 +343,7 @@ var dag = {
             ]
         },
         "crypto/sha256": {
+            "n": "crypto/sha256",
             "x": 10,
             "y": 53,
             "i": [
@@ -328,6 +354,7 @@ var dag = {
             ]
         },
         "crypto/sha512": {
+            "n": "crypto/sha512",
             "x": 9,
             "y": 45,
             "i": [
@@ -338,6 +365,7 @@ var dag = {
             ]
         },
         "crypto/subtle": {
+            "n": "crypto/subtle",
             "x": 6,
             "y": 22,
             "i": [],
@@ -347,6 +375,7 @@ var dag = {
             ]
         },
         "crypto/tls": {
+            "n": "crypto/tls",
             "x": 12,
             "y": 17,
             "i": [
@@ -361,6 +390,7 @@ var dag = {
             ]
         },
         "crypto/x509": {
+            "n": "crypto/x509",
             "x": 11,
             "y": 38,
             "i": [
@@ -383,6 +413,7 @@ var dag = {
             ]
         },
         "crypto/x509/pkix": {
+            "n": "crypto/x509/pkix",
             "x": 10,
             "y": 55,
             "i": [
@@ -393,6 +424,7 @@ var dag = {
             ]
         },
         "database/sql": {
+            "n": "database/sql",
             "x": 9,
             "y": 15,
             "i": [
@@ -402,6 +434,7 @@ var dag = {
             "o": []
         },
         "database/sql/driver": {
+            "n": "database/sql/driver",
             "x": 8,
             "y": 16,
             "i": [
@@ -412,6 +445,7 @@ var dag = {
             ]
         },
         "debug/dwarf": {
+            "n": "debug/dwarf",
             "x": 12,
             "y": 19,
             "i": [
@@ -427,6 +461,7 @@ var dag = {
             ]
         },
         "debug/elf": {
+            "n": "debug/elf",
             "x": 13,
             "y": 34,
             "i": [
@@ -438,6 +473,7 @@ var dag = {
             ]
         },
         "debug/gosym": {
+            "n": "debug/gosym",
             "x": 8,
             "y": 24,
             "i": [
@@ -449,8 +485,9 @@ var dag = {
             "o": []
         },
         "debug/macho": {
+            "n": "debug/macho",
             "x": 13,
-            "y": 13,
+            "y": 12,
             "i": [
                 "bytes",
                 "debug/dwarf"
@@ -458,14 +495,16 @@ var dag = {
             "o": []
         },
         "debug/pe": {
+            "n": "debug/pe",
             "x": 13,
-            "y": 10,
+            "y": 9,
             "i": [
                 "debug/dwarf"
             ],
             "o": []
         },
         "debug/plan9obj": {
+            "n": "debug/plan9obj",
             "x": 8,
             "y": 18,
             "i": [
@@ -475,6 +514,7 @@ var dag = {
             "o": []
         },
         "encoding": {
+            "n": "encoding",
             "x": 11,
             "y": 7,
             "i": [],
@@ -485,6 +525,7 @@ var dag = {
             ]
         },
         "encoding/ascii85": {
+            "n": "encoding/ascii85",
             "x": 6,
             "y": 31,
             "i": [
@@ -494,6 +535,7 @@ var dag = {
             "o": []
         },
         "encoding/asn1": {
+            "n": "encoding/asn1",
             "x": 9,
             "y": 41,
             "i": [
@@ -505,6 +547,7 @@ var dag = {
             ]
         },
         "encoding/base32": {
+            "n": "encoding/base32",
             "x": 8,
             "y": 34,
             "i": [
@@ -515,6 +558,7 @@ var dag = {
             "o": []
         },
         "encoding/base64": {
+            "n": "encoding/base64",
             "x": 9,
             "y": 37,
             "i": [
@@ -528,6 +572,7 @@ var dag = {
             ]
         },
         "encoding/binary": {
+            "n": "encoding/binary",
             "x": 7,
             "y": 23,
             "i": [
@@ -547,6 +592,7 @@ var dag = {
             ]
         },
         "encoding/csv": {
+            "n": "encoding/csv",
             "x": 9,
             "y": 28,
             "i": [
@@ -557,6 +603,7 @@ var dag = {
             "o": []
         },
         "encoding/gob": {
+            "n": "encoding/gob",
             "x": 13,
             "y": 27,
             "i": [
@@ -569,6 +616,7 @@ var dag = {
             ]
         },
         "encoding/hex": {
+            "n": "encoding/hex",
             "x": 10,
             "y": 45,
             "i": [
@@ -580,6 +628,7 @@ var dag = {
             ]
         },
         "encoding/json": {
+            "n": "encoding/json",
             "x": 12,
             "y": 26,
             "i": [
@@ -597,6 +646,7 @@ var dag = {
             ]
         },
         "encoding/pem": {
+            "n": "encoding/pem",
             "x": 10,
             "y": 28,
             "i": [
@@ -610,6 +660,7 @@ var dag = {
             ]
         },
         "encoding/xml": {
+            "n": "encoding/xml",
             "x": 12,
             "y": 34,
             "i": [
@@ -621,6 +672,7 @@ var dag = {
             "o": []
         },
         "errors": {
+            "n": "errors",
             "x": 3,
             "y": 26,
             "i": [],
@@ -631,6 +683,7 @@ var dag = {
             ]
         },
         "expvar": {
+            "n": "expvar",
             "x": 14,
             "y": 32,
             "i": [
@@ -640,8 +693,9 @@ var dag = {
             "o": []
         },
         "flag": {
+            "n": "flag",
             "x": 13,
-            "y": 19,
+            "y": 21,
             "i": [
                 "fmt",
                 "sort"
@@ -653,6 +707,7 @@ var dag = {
             ]
         },
         "fmt": {
+            "n": "fmt",
             "x": 7,
             "y": 25,
             "i": [
@@ -685,11 +740,11 @@ var dag = {
                 "os/user",
                 "runtime/pprof",
                 "text/scanner",
-                "text/template/parse",
-                "vendor/golang_org/x/net/http2/hpack"
+                "text/template/parse"
             ]
         },
         "go/ast": {
+            "n": "go/ast",
             "x": 11,
             "y": 13,
             "i": [
@@ -702,8 +757,9 @@ var dag = {
             ]
         },
         "go/build": {
+            "n": "go/build",
             "x": 13,
-            "y": 21,
+            "y": 19,
             "i": [
                 "bufio",
                 "go/doc",
@@ -715,6 +771,7 @@ var dag = {
             ]
         },
         "go/constant": {
+            "n": "go/constant",
             "x": 12,
             "y": 8,
             "i": [
@@ -726,6 +783,7 @@ var dag = {
             ]
         },
         "go/doc": {
+            "n": "go/doc",
             "x": 12,
             "y": 21,
             "i": [
@@ -739,6 +797,7 @@ var dag = {
             ]
         },
         "go/format": {
+            "n": "go/format",
             "x": 14,
             "y": 17,
             "i": [
@@ -748,8 +807,9 @@ var dag = {
             "o": []
         },
         "go/importer": {
+            "n": "go/importer",
             "x": 15,
-            "y": 24,
+            "y": 22,
             "i": [
                 "go/internal/gccgoimporter",
                 "go/internal/gcimporter"
@@ -757,6 +817,7 @@ var dag = {
             "o": []
         },
         "go/internal/gccgoimporter": {
+            "n": "go/internal/gccgoimporter",
             "x": 14,
             "y": 24,
             "i": [
@@ -770,8 +831,9 @@ var dag = {
             ]
         },
         "go/internal/gcimporter": {
+            "n": "go/internal/gcimporter",
             "x": 14,
-            "y": 22,
+            "y": 19,
             "i": [
                 "go/build",
                 "go/types",
@@ -782,8 +844,9 @@ var dag = {
             ]
         },
         "go/parser": {
+            "n": "go/parser",
             "x": 12,
-            "y": 12,
+            "y": 10,
             "i": [
                 "go/ast",
                 "io/ioutil"
@@ -795,6 +858,7 @@ var dag = {
             ]
         },
         "go/printer": {
+            "n": "go/printer",
             "x": 13,
             "y": 36,
             "i": [
@@ -806,8 +870,9 @@ var dag = {
             ]
         },
         "go/scanner": {
+            "n": "go/scanner",
             "x": 10,
-            "y": 14,
+            "y": 13,
             "i": [
                 "bytes",
                 "go/token",
@@ -818,6 +883,7 @@ var dag = {
             ]
         },
         "go/token": {
+            "n": "go/token",
             "x": 9,
             "y": 19,
             "i": [
@@ -830,8 +896,9 @@ var dag = {
             ]
         },
         "go/types": {
+            "n": "go/types",
             "x": 13,
-            "y": 8,
+            "y": 7,
             "i": [
                 "container/heap",
                 "go/constant",
@@ -843,6 +910,7 @@ var dag = {
             ]
         },
         "hash": {
+            "n": "hash",
             "x": 7,
             "y": 35,
             "i": [
@@ -858,6 +926,7 @@ var dag = {
             ]
         },
         "hash/adler32": {
+            "n": "hash/adler32",
             "x": 11,
             "y": 47,
             "i": [
@@ -868,6 +937,7 @@ var dag = {
             ]
         },
         "hash/crc32": {
+            "n": "hash/crc32",
             "x": 11,
             "y": 45,
             "i": [
@@ -880,6 +950,16 @@ var dag = {
             ]
         },
         "hash/crc64": {
+            "n": "hash/crc64",
+            "x": 8,
+            "y": 42,
+            "i": [
+                "hash"
+            ],
+            "o": []
+        },
+        "hash/fnv": {
+            "n": "hash/fnv",
             "x": 8,
             "y": 44,
             "i": [
@@ -887,15 +967,8 @@ var dag = {
             ],
             "o": []
         },
-        "hash/fnv": {
-            "x": 8,
-            "y": 46,
-            "i": [
-                "hash"
-            ],
-            "o": []
-        },
         "html": {
+            "n": "html",
             "x": 12,
             "y": 50,
             "i": [
@@ -906,6 +979,7 @@ var dag = {
             ]
         },
         "html/template": {
+            "n": "html/template",
             "x": 13,
             "y": 40,
             "i": [
@@ -919,6 +993,7 @@ var dag = {
             ]
         },
         "image": {
+            "n": "image",
             "x": 12,
             "y": 38,
             "i": [
@@ -932,6 +1007,7 @@ var dag = {
             ]
         },
         "image/color": {
+            "n": "image/color",
             "x": 11,
             "y": 49,
             "i": [],
@@ -941,6 +1017,7 @@ var dag = {
             ]
         },
         "image/color/palette": {
+            "n": "image/color/palette",
             "x": 14,
             "y": 49,
             "i": [
@@ -951,6 +1028,7 @@ var dag = {
             ]
         },
         "image/draw": {
+            "n": "image/draw",
             "x": 14,
             "y": 44,
             "i": [
@@ -961,6 +1039,7 @@ var dag = {
             ]
         },
         "image/gif": {
+            "n": "image/gif",
             "x": 15,
             "y": 44,
             "i": [
@@ -971,6 +1050,7 @@ var dag = {
             "o": []
         },
         "image/internal/imageutil": {
+            "n": "image/internal/imageutil",
             "x": 13,
             "y": 44,
             "i": [
@@ -982,6 +1062,7 @@ var dag = {
             ]
         },
         "image/jpeg": {
+            "n": "image/jpeg",
             "x": 14,
             "y": 46,
             "i": [
@@ -990,6 +1071,7 @@ var dag = {
             "o": []
         },
         "image/png": {
+            "n": "image/png",
             "x": 13,
             "y": 38,
             "i": [
@@ -1001,6 +1083,7 @@ var dag = {
             "o": []
         },
         "index/suffixarray": {
+            "n": "index/suffixarray",
             "x": 12,
             "y": 6,
             "i": [
@@ -1010,6 +1093,7 @@ var dag = {
             "o": []
         },
         "internal/nettrace": {
+            "n": "internal/nettrace",
             "x": 9,
             "y": 9,
             "i": [],
@@ -1018,6 +1102,7 @@ var dag = {
             ]
         },
         "internal/race": {
+            "n": "internal/race",
             "x": 2,
             "y": 26,
             "i": [
@@ -1028,6 +1113,7 @@ var dag = {
             ]
         },
         "internal/singleflight": {
+            "n": "internal/singleflight",
             "x": 9,
             "y": 11,
             "i": [
@@ -1038,14 +1124,16 @@ var dag = {
             ]
         },
         "internal/syscall/windows/sysdll": {
+            "n": "internal/syscall/windows/sysdll",
             "x": 0,
             "y": 25,
             "i": [],
             "o": []
         },
         "internal/testenv": {
+            "n": "internal/testenv",
             "x": 15,
-            "y": 26,
+            "y": 24,
             "i": [
                 "os/exec",
                 "testing"
@@ -1053,6 +1141,7 @@ var dag = {
             "o": []
         },
         "internal/trace": {
+            "n": "internal/trace",
             "x": 11,
             "y": 20,
             "i": [
@@ -1063,6 +1152,7 @@ var dag = {
             "o": []
         },
         "io": {
+            "n": "io",
             "x": 5,
             "y": 30,
             "i": [
@@ -1082,6 +1172,7 @@ var dag = {
             ]
         },
         "io/ioutil": {
+            "n": "io/ioutil",
             "x": 10,
             "y": 36,
             "i": [
@@ -1099,6 +1190,7 @@ var dag = {
             ]
         },
         "log": {
+            "n": "log",
             "x": 12,
             "y": 4,
             "i": [
@@ -1113,6 +1205,7 @@ var dag = {
             ]
         },
         "log/syslog": {
+            "n": "log/syslog",
             "x": 13,
             "y": 17,
             "i": [
@@ -1123,6 +1216,7 @@ var dag = {
             "o": []
         },
         "math": {
+            "n": "math",
             "x": 4,
             "y": 29,
             "i": [
@@ -1135,6 +1229,7 @@ var dag = {
             ]
         },
         "math/big": {
+            "n": "math/big",
             "x": 8,
             "y": 32,
             "i": [
@@ -1153,6 +1248,7 @@ var dag = {
             ]
         },
         "math/cmplx": {
+            "n": "math/cmplx",
             "x": 5,
             "y": 32,
             "i": [
@@ -1161,6 +1257,7 @@ var dag = {
             "o": []
         },
         "math/rand": {
+            "n": "math/rand",
             "x": 7,
             "y": 33,
             "i": [
@@ -1175,6 +1272,7 @@ var dag = {
             ]
         },
         "mime": {
+            "n": "mime",
             "x": 11,
             "y": 28,
             "i": [
@@ -1190,6 +1288,7 @@ var dag = {
             ]
         },
         "mime/multipart": {
+            "n": "mime/multipart",
             "x": 12,
             "y": 36,
             "i": [
@@ -1203,6 +1302,7 @@ var dag = {
             ]
         },
         "mime/quotedprintable": {
+            "n": "mime/quotedprintable",
             "x": 11,
             "y": 43,
             "i": [
@@ -1214,6 +1314,7 @@ var dag = {
             ]
         },
         "net": {
+            "n": "net",
             "x": 10,
             "y": 16,
             "i": [
@@ -1231,6 +1332,7 @@ var dag = {
             ]
         },
         "net/http": {
+            "n": "net/http",
             "x": 13,
             "y": 25,
             "i": [
@@ -1254,8 +1356,9 @@ var dag = {
             ]
         },
         "net/http/cgi": {
+            "n": "net/http/cgi",
             "x": 14,
-            "y": 19,
+            "y": 21,
             "i": [
                 "net/http",
                 "regexp"
@@ -1265,6 +1368,7 @@ var dag = {
             ]
         },
         "net/http/cookiejar": {
+            "n": "net/http/cookiejar",
             "x": 14,
             "y": 37,
             "i": [
@@ -1273,14 +1377,16 @@ var dag = {
             "o": []
         },
         "net/http/fcgi": {
+            "n": "net/http/fcgi",
             "x": 15,
-            "y": 19,
+            "y": 20,
             "i": [
                 "net/http/cgi"
             ],
             "o": []
         },
         "net/http/httptest": {
+            "n": "net/http/httptest",
             "x": 14,
             "y": 15,
             "i": [
@@ -1290,6 +1396,7 @@ var dag = {
             "o": []
         },
         "net/http/httptrace": {
+            "n": "net/http/httptrace",
             "x": 12,
             "y": 0,
             "i": [
@@ -1300,6 +1407,7 @@ var dag = {
             ]
         },
         "net/http/httputil": {
+            "n": "net/http/httputil",
             "x": 14,
             "y": 13,
             "i": [
@@ -1308,6 +1416,7 @@ var dag = {
             "o": []
         },
         "net/http/internal": {
+            "n": "net/http/internal",
             "x": 12,
             "y": 46,
             "i": [
@@ -1319,6 +1428,7 @@ var dag = {
             ]
         },
         "net/http/pprof": {
+            "n": "net/http/pprof",
             "x": 14,
             "y": 35,
             "i": [
@@ -1330,6 +1440,7 @@ var dag = {
             "o": []
         },
         "net/internal/socktest": {
+            "n": "net/internal/socktest",
             "x": 8,
             "y": 14,
             "i": [
@@ -1338,6 +1449,7 @@ var dag = {
             "o": []
         },
         "net/mail": {
+            "n": "net/mail",
             "x": 13,
             "y": 23,
             "i": [
@@ -1348,6 +1460,7 @@ var dag = {
             "o": []
         },
         "net/rpc": {
+            "n": "net/rpc",
             "x": 14,
             "y": 30,
             "i": [
@@ -1360,6 +1473,7 @@ var dag = {
             ]
         },
         "net/rpc/jsonrpc": {
+            "n": "net/rpc/jsonrpc",
             "x": 15,
             "y": 30,
             "i": [
@@ -1368,6 +1482,7 @@ var dag = {
             "o": []
         },
         "net/smtp": {
+            "n": "net/smtp",
             "x": 13,
             "y": 42,
             "i": [
@@ -1377,6 +1492,7 @@ var dag = {
             "o": []
         },
         "net/textproto": {
+            "n": "net/textproto",
             "x": 11,
             "y": 35,
             "i": [
@@ -1391,6 +1507,7 @@ var dag = {
             ]
         },
         "net/url": {
+            "n": "net/url",
             "x": 10,
             "y": 24,
             "i": [
@@ -1405,6 +1522,7 @@ var dag = {
             ]
         },
         "os": {
+            "n": "os",
             "x": 6,
             "y": 27,
             "i": [
@@ -1415,11 +1533,11 @@ var dag = {
                 "fmt",
                 "os/signal",
                 "path/filepath",
-                "runtime/debug",
-                "vendor/golang_org/x/net/route"
+                "runtime/debug"
             ]
         },
         "os/exec": {
+            "n": "os/exec",
             "x": 10,
             "y": 18,
             "i": [
@@ -1435,6 +1553,7 @@ var dag = {
             ]
         },
         "os/signal": {
+            "n": "os/signal",
             "x": 7,
             "y": 19,
             "i": [
@@ -1443,6 +1562,7 @@ var dag = {
             "o": []
         },
         "os/user": {
+            "n": "os/user",
             "x": 8,
             "y": 38,
             "i": [
@@ -1452,6 +1572,7 @@ var dag = {
             "o": []
         },
         "path": {
+            "n": "path",
             "x": 11,
             "y": 15,
             "i": [
@@ -1466,6 +1587,7 @@ var dag = {
             ]
         },
         "path/filepath": {
+            "n": "path/filepath",
             "x": 9,
             "y": 24,
             "i": [
@@ -1480,6 +1602,7 @@ var dag = {
             ]
         },
         "reflect": {
+            "n": "reflect",
             "x": 6,
             "y": 24,
             "i": [
@@ -1492,6 +1615,7 @@ var dag = {
             ]
         },
         "regexp": {
+            "n": "regexp",
             "x": 11,
             "y": 11,
             "i": [
@@ -1504,6 +1628,7 @@ var dag = {
             ]
         },
         "regexp/syntax": {
+            "n": "regexp/syntax",
             "x": 10,
             "y": 20,
             "i": [
@@ -1517,6 +1642,7 @@ var dag = {
             ]
         },
         "runtime": {
+            "n": "runtime",
             "x": 2,
             "y": 28,
             "i": [
@@ -1528,6 +1654,7 @@ var dag = {
             ]
         },
         "runtime/cgo": {
+            "n": "runtime/cgo",
             "x": 1,
             "y": 26,
             "i": [
@@ -1536,6 +1663,7 @@ var dag = {
             "o": []
         },
         "runtime/debug": {
+            "n": "runtime/debug",
             "x": 13,
             "y": 15,
             "i": [
@@ -1547,6 +1675,7 @@ var dag = {
             ]
         },
         "runtime/internal/atomic": {
+            "n": "runtime/internal/atomic",
             "x": 1,
             "y": 28,
             "i": [
@@ -1557,6 +1686,7 @@ var dag = {
             ]
         },
         "runtime/internal/sys": {
+            "n": "runtime/internal/sys",
             "x": 1,
             "y": 30,
             "i": [],
@@ -1565,6 +1695,7 @@ var dag = {
             ]
         },
         "runtime/pprof": {
+            "n": "runtime/pprof",
             "x": 13,
             "y": 30,
             "i": [
@@ -1580,12 +1711,14 @@ var dag = {
             ]
         },
         "runtime/race": {
+            "n": "runtime/race",
             "x": 0,
             "y": 31,
             "i": [],
             "o": []
         },
         "runtime/trace": {
+            "n": "runtime/trace",
             "x": 13,
             "y": 46,
             "i": [
@@ -1597,8 +1730,9 @@ var dag = {
             ]
         },
         "sort": {
+            "n": "sort",
             "x": 8,
-            "y": 10,
+            "y": 12,
             "i": [],
             "o": [
                 "compress/bzip2",
@@ -1620,6 +1754,7 @@ var dag = {
             ]
         },
         "strconv": {
+            "n": "strconv",
             "x": 5,
             "y": 26,
             "i": [
@@ -1641,6 +1776,7 @@ var dag = {
             ]
         },
         "strings": {
+            "n": "strings",
             "x": 7,
             "y": 29,
             "i": [
@@ -1666,11 +1802,11 @@ var dag = {
                 "regexp/syntax",
                 "runtime/pprof",
                 "testing/quick",
-                "text/template/parse",
-                "vendor/golang_org/x/net/lex/httplex"
+                "text/template/parse"
             ]
         },
         "sync": {
+            "n": "sync",
             "x": 3,
             "y": 28,
             "i": [
@@ -1687,6 +1823,7 @@ var dag = {
             ]
         },
         "sync/atomic": {
+            "n": "sync/atomic",
             "x": 2,
             "y": 30,
             "i": [
@@ -1697,6 +1834,7 @@ var dag = {
             ]
         },
         "syscall": {
+            "n": "syscall",
             "x": 4,
             "y": 27,
             "i": [
@@ -1708,6 +1846,7 @@ var dag = {
             ]
         },
         "testing": {
+            "n": "testing",
             "x": 14,
             "y": 28,
             "i": [
@@ -1721,14 +1860,16 @@ var dag = {
             ]
         },
         "testing/iotest": {
+            "n": "testing/iotest",
             "x": 13,
-            "y": 4,
+            "y": 5,
             "i": [
                 "log"
             ],
             "o": []
         },
         "testing/quick": {
+            "n": "testing/quick",
             "x": 14,
             "y": 26,
             "i": [
@@ -1739,6 +1880,7 @@ var dag = {
             "o": []
         },
         "text/scanner": {
+            "n": "text/scanner",
             "x": 13,
             "y": 32,
             "i": [
@@ -1751,6 +1893,7 @@ var dag = {
             ]
         },
         "text/tabwriter": {
+            "n": "text/tabwriter",
             "x": 12,
             "y": 48,
             "i": [
@@ -1762,8 +1905,9 @@ var dag = {
             ]
         },
         "text/template": {
+            "n": "text/template",
             "x": 11,
-            "y": 40,
+            "y": 41,
             "i": [
                 "io/ioutil",
                 "net/url",
@@ -1775,8 +1919,9 @@ var dag = {
             ]
         },
         "text/template/parse": {
+            "n": "text/template/parse",
             "x": 10,
-            "y": 40,
+            "y": 41,
             "i": [
                 "bytes",
                 "fmt",
@@ -1787,6 +1932,7 @@ var dag = {
             ]
         },
         "time": {
+            "n": "time",
             "x": 5,
             "y": 24,
             "i": [
@@ -1797,6 +1943,7 @@ var dag = {
             ]
         },
         "unicode": {
+            "n": "unicode",
             "x": 6,
             "y": 33,
             "i": [],
@@ -1806,6 +1953,7 @@ var dag = {
             ]
         },
         "unicode/utf16": {
+            "n": "unicode/utf16",
             "x": 11,
             "y": 51,
             "i": [],
@@ -1814,6 +1962,7 @@ var dag = {
             ]
         },
         "unicode/utf8": {
+            "n": "unicode/utf8",
             "x": 4,
             "y": 25,
             "i": [],
@@ -1824,6 +1973,7 @@ var dag = {
             ]
         },
         "unsafe": {
+            "n": "unsafe",
             "x": 0,
             "y": 27,
             "i": [],
@@ -1834,31 +1984,6 @@ var dag = {
                 "runtime/internal/atomic",
                 "sync/atomic"
             ]
-        },
-        "vendor/golang_org/x/net/http2/hpack": {
-            "x": 8,
-            "y": 40,
-            "i": [
-                "bytes",
-                "fmt"
-            ],
-            "o": []
-        },
-        "vendor/golang_org/x/net/lex/httplex": {
-            "x": 8,
-            "y": 12,
-            "i": [
-                "strings"
-            ],
-            "o": []
-        },
-        "vendor/golang_org/x/net/route": {
-            "x": 7,
-            "y": 37,
-            "i": [
-                "os"
-            ],
-            "o": []
         }
     }
 };
