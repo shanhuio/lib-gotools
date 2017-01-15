@@ -59,6 +59,9 @@ func checkRectLoaded(prog *goload.Program, h, w int) []*lexing.Error {
 }
 
 func validLineCommentContent(s string) bool {
+	if s == "" {
+		return true
+	}
 	if strings.HasPrefix(s, " ") {
 		return true
 	}
