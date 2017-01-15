@@ -51,25 +51,26 @@ func main() {
 
 	flag.Parse()
 
-	pkgs, e := goload.ListPkgs(*path)
-	errExit(e)
+	pkgs, err := goload.ListPkgs(*path)
+	errExit(err)
 
-	prog, e := goload.Pkgs(pkgs)
-	errExit(e)
+	prog, err := goload.Pkgs(pkgs)
+	errExit(err)
 
-	es := checkRectLoaded(prog, *textHeight, *textWidth)
-	if es != nil {
-		for _, e := range es {
-			fmt.Fprintln(os.Stderr, e)
+	fileDeps := godep.FileDepLoaded(prog)
+	for p, g := range fileDeps {
+		_, err = dagvis.IsDAG(g)
+		if err != nil {
+			errExit(fmt.Errorf("%s: %s", p, err))
+		}
+	}
+
+	errs := checkRectLoaded(prog, *textHeight, *textWidth)
+	if errs != nil {
+		for _, err := range errs {
+			fmt.Fprintln(os.Stderr, err)
 		}
 		os.Exit(-1)
 	}
 
-	fileDeps := godep.FileDepLoaded(prog)
-	for p, g := range fileDeps {
-		_, e = dagvis.IsDAG(g)
-		if e != nil {
-			errExit(fmt.Errorf("%s: %s", p, e))
-		}
-	}
 }
