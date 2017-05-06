@@ -13,5 +13,5 @@ install:
 script:
     - test -z `gofmt -s -l .`
     - go test ./...
-    - e8chk -path="shanhu.io/tools"
+    - smlchk -path="shanhu.io/tools"
     - golint ./...
