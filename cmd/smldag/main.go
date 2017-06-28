@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"os"
 	"strings"
@@ -13,27 +14,39 @@ import (
 	"shanhu.io/tools/goload"
 )
 
-func ne(e error) {
-	if e != nil {
-		fmt.Fprintln(os.Stderr, e)
+func ne(err error) {
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
 		os.Exit(-1)
 	}
 }
 
-func saveLayout(g *dagvis.Graph, f string) {
-	m, e := dagvis.LayoutJSON(g)
-	ne(e)
+func saveLayoutBytes(bs []byte, f string) {
+	if strings.HasSuffix(f, ".js") {
+		out, err := os.Open(f)
+		ne(err)
+		defer out.Close()
 
-	e = ioutil.WriteFile(f, m, 0644)
-	ne(e)
+		_, err = io.WriteString(out, "var dag = ")
+		ne(err)
+
+		_, err = out.Write(bs)
+		ne(err)
+
+		_, err = io.WriteString(out, ";")
+		ne(err)
+
+		ne(out.Close())
+		return
+	}
+
+	ne(ioutil.WriteFile(f, bs, 0644))
 }
 
-func saveRevLayout(g *dagvis.Graph, f string) {
-	m, e := dagvis.RevLayoutJSON(g)
-	ne(e)
-
-	e = ioutil.WriteFile(f, m, 0644)
-	ne(e)
+func saveLayout(g *dagvis.Graph, f string) {
+	m, err := dagvis.LayoutJSON(g)
+	ne(err)
+	saveLayoutBytes(m, f)
 }
 
 func repoDep(repo string) (*dagvis.Graph, error) {
@@ -66,5 +79,6 @@ func main() {
 
 	g, e := repoDep(*repo)
 	ne(e)
+
 	saveLayout(g, *out)
 }
