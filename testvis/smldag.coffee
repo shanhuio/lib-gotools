@@ -1,4 +1,10 @@
-esc = (name) -> name.replace(/\//g, '_').replace(/\./g, '_')
+esc = (name) ->
+    n = name.length
+    ret = 'x'
+    for i in [0..(n-1)]
+        ret += name.charCodeAt(i).toString(16)
+    return ret
+
 boxof = (name) -> "polygon#" + esc(name)
 pathof = (from, to) -> "path#"+esc(from)+"-"+esc(to)
 

@@ -23,7 +23,7 @@ func ne(err error) {
 
 func saveLayoutBytes(bs []byte, f string) {
 	if strings.HasSuffix(f, ".js") {
-		out, err := os.Open(f)
+		out, err := os.Create(f)
 		ne(err)
 		defer out.Close()
 

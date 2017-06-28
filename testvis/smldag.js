@@ -3,7 +3,13 @@
   var boxHeight, boxof, createDAG, drawDAG, esc, hideText, main, pathof, redraw, reqFile, showText, ygrid;
 
   esc = function(name) {
-    return name.replace(/\//g, '_').replace(/\./g, '_');
+    var i, j, n, ref, ret;
+    n = name.length;
+    ret = 'x';
+    for (i = j = 0, ref = n - 1; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
+      ret += name.charCodeAt(i).toString(16);
+    }
+    return ret;
   };
 
   boxof = function(name) {
@@ -59,7 +65,6 @@
 
   redraw = function(svg, dag, onclick) {
     var name, node;
-    console.log(dag);
     for (name in dag) {
       node = dag[name];
       node.name = name;
@@ -72,37 +77,35 @@
   $(document).ready(main);
 
   createDAG = function(svg, dag, onclick) {
-    var b, dat, hoverFunc, i, j, k, lab, len, len1, len2, lightIns, lightOuts, node, output, p, path, paths, ref;
+    var b, dat, hoverFunc, j, k, l, lab, len, len1, len2, lightIns, lightOuts, node, output, p, path, paths, ref;
     svg.selectAll("*").remove();
-    console.log("created dag");
-    console.log(dag);
     paths = [];
     for (node in dag) {
       dat = dag[node];
       ref = dat.o;
-      for (i = 0, len = ref.length; i < len; i++) {
-        output = ref[i];
+      for (j = 0, len = ref.length; j < len; j++) {
+        output = ref[j];
         paths.push({
           n: esc(node) + "-" + esc(output)
         });
       }
     }
-    for (j = 0, len1 = paths.length; j < len1; j++) {
-      path = paths[j];
+    for (k = 0, len1 = paths.length; k < len1; k++) {
+      path = paths[k];
       p = svg.append("path");
       p.attr("d", "");
       p.attr("id", "BG-" + path.n);
       p.attr("class", "bg");
     }
-    for (k = 0, len2 = paths.length; k < len2; k++) {
-      path = paths[k];
+    for (l = 0, len2 = paths.length; l < len2; l++) {
+      path = paths[l];
       p = svg.append("path");
       p.attr("d", "");
       p.attr("id", path.n);
       p.attr("class", "dep");
     }
     lightIns = function(name, first) {
-      var boxin, depin, input, l, len3, ref1;
+      var boxin, depin, input, len3, m, ref1;
       if (first) {
         boxin = "box in";
         depin = "dep in";
@@ -111,15 +114,15 @@
         depin = "dep in2";
       }
       ref1 = dag[name].i;
-      for (l = 0, len3 = ref1.length; l < len3; l++) {
-        input = ref1[l];
+      for (m = 0, len3 = ref1.length; m < len3; m++) {
+        input = ref1[m];
         svg.select(boxof(input)).attr("class", boxin);
         svg.select(pathof(input, name)).attr("class", depin);
         lightIns(input, false);
       }
     };
     lightOuts = function(name, first) {
-      var boxout, depout, l, len3, ref1;
+      var boxout, depout, len3, m, ref1;
       if (first) {
         boxout = "box out";
         depout = "dep out";
@@ -128,8 +131,8 @@
         depout = "dep out2";
       }
       ref1 = dag[name].o;
-      for (l = 0, len3 = ref1.length; l < len3; l++) {
-        output = ref1[l];
+      for (m = 0, len3 = ref1.length; m < len3; m++) {
+        output = ref1[m];
         svg.select(boxof(output)).attr("class", boxout);
         svg.select(pathof(name, output)).attr("class", depout);
         lightOuts(output, false);
@@ -160,7 +163,7 @@
   };
 
   drawDAG = function(svg, dag) {
-    var b, boxWidth, dat, fromx, fromy, i, j, k, lab, len, len1, len2, n, name, nameMaxLen, node, output, p, path, paths, points, ref, t, toNode, tox, toy, turnx, xgrid, xleft, xmax, xright, ybottom, ymax, ymid, ytop;
+    var b, boxWidth, dat, fromx, fromy, j, k, l, lab, len, len1, len2, n, name, nameMaxLen, node, output, p, path, paths, points, ref, t, toNode, tox, toy, turnx, xgrid, xleft, xmax, xright, ybottom, ymax, ymid, ytop;
     xmax = 0;
     ymax = 0;
     for (name in dag) {
@@ -191,8 +194,8 @@
     for (node in dag) {
       dat = dag[node];
       ref = dat.o;
-      for (i = 0, len = ref.length; i < len; i++) {
-        output = ref[i];
+      for (j = 0, len = ref.length; j < len; j++) {
+        output = ref[j];
         toNode = dag[output];
         fromx = dat.x * xgrid + boxWidth;
         fromy = dat.y * ygrid + boxHeight / 2;
@@ -209,13 +212,13 @@
         });
       }
     }
-    for (j = 0, len1 = paths.length; j < len1; j++) {
-      path = paths[j];
+    for (k = 0, len1 = paths.length; k < len1; k++) {
+      path = paths[k];
       p = svg.select("path#BG-" + path.n);
       p.attr("d", path.p);
     }
-    for (k = 0, len2 = paths.length; k < len2; k++) {
-      path = paths[k];
+    for (l = 0, len2 = paths.length; l < len2; l++) {
+      path = paths[l];
       p = svg.select("path#" + path.n);
       p.attr("d", path.p);
     }
