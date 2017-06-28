@@ -46,6 +46,9 @@ func ListPkgs(p string) ([]string, error) {
 		if strings.HasPrefix(base, "_") || strings.HasPrefix(base, ".") {
 			return filepath.SkipDir
 		}
+		if base == "vendor" {
+			return filepath.SkipDir
+		}
 
 		pkg, e := build.Import(path, "", 0) // check if it is a package
 		if e != nil {

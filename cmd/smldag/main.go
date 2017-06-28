@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"strings"
 
 	"shanhu.io/smlvm/dagvis"
 
@@ -44,7 +45,18 @@ func repoDep(repo string) (*dagvis.Graph, error) {
 	if err != nil {
 		return nil, err
 	}
-	return godep.PkgDep(pkgs)
+	g, err := godep.PkgDep(pkgs)
+	if err != nil {
+		return nil, err
+	}
+
+	repoSlash := repo + "/"
+	return g.Rename(func(name string) (string, error) {
+		if name == repo {
+			return "~", nil
+		}
+		return strings.TrimPrefix(name, repoSlash), nil
+	})
 }
 
 func main() {
