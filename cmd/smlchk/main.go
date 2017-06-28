@@ -12,6 +12,7 @@ import (
 	"shanhu.io/smlvm/dagvis"
 	"shanhu.io/smlvm/lexing"
 	"shanhu.io/smlvm/textbox"
+
 	"shanhu.io/tools/godep"
 	"shanhu.io/tools/goload"
 )
@@ -122,7 +123,7 @@ func checkLineComment(prog *goload.Program) []*lexing.Error {
 }
 
 func main() {
-	path := flag.String("path", "e8vm.io/e8vm", "go pkg path to check")
+	path := flag.String("path", "shanhu.io/smlvm", "go pkg path to check")
 	textHeight := flag.Int("height", 300, "maximum height for a single file")
 	textWidth := flag.Int("width", 80, "maximum width for a single file")
 
