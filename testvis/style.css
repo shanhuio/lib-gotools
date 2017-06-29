@@ -36,6 +36,7 @@ div.sep {
 }
 
 div.canvas {
+    margin-top: 20px;
     width: 100%;
     /* position: fixed;
     bottom: 0;

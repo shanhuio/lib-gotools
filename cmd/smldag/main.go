@@ -50,7 +50,7 @@ func saveLayout(g *dagvis.Graph, f string) {
 }
 
 func repoDep(repo string) (*dagvis.Graph, error) {
-	if repo == "-" {
+	if repo == "" {
 		return godep.StdDep()
 	}
 
