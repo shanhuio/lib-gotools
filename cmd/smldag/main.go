@@ -8,10 +8,10 @@ import (
 	"os"
 	"strings"
 
-	"shanhu.io/p/shanhu.io/smlvm/dagvis"
+	"shanhu.io/smlvm/dagvis"
 
-	"shanhu.io/p/shanhu.io/tools/godep"
-	"shanhu.io/p/shanhu.io/tools/goload"
+	"shanhu.io/tools/godep"
+	"shanhu.io/tools/goload"
 )
 
 func ne(err error) {
