@@ -46,7 +46,7 @@ func ListPkgs(p string) ([]string, error) {
 		if strings.HasPrefix(base, "_") || strings.HasPrefix(base, ".") {
 			return filepath.SkipDir
 		}
-		if base == "vendor" {
+		if base == "vendor" || base == "testdata" {
 			return filepath.SkipDir
 		}
 
