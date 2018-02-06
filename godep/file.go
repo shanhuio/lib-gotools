@@ -17,8 +17,8 @@ import (
 // filename returns a file node name for a file
 func filename(fset *token.FileSet, p token.Pos) string {
 	ret := filepath.Base(fset.Position(p).Filename)
-	sufs := []string{".go", "_test.go"}
 
+	sufs := []string{".go", "_test.go"}
 	for _, suf := range sufs {
 		if strings.HasSuffix(ret, suf) {
 			return strings.TrimSuffix(ret, suf)
@@ -51,8 +51,8 @@ func (d *fileDep) addDep(fdef, fused string) {
 // by package types
 func (d *fileDep) types() {
 	for use, obj := range d.pinfo.Uses {
-		pack := obj.Pkg()
-		if pack != d.pkg {
+		pkg := obj.Pkg()
+		if pkg != d.pkg {
 			continue // ignore inter-pkg refs
 		}
 
