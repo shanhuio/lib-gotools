@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"os"
 
+	"shanhu.io/misc/goload"
 	"shanhu.io/smlvm/lexing"
 	"shanhu.io/tools/gocheck"
-	"shanhu.io/tools/goload"
 )
 
 func errExit(err error) {
