@@ -26,22 +26,22 @@ func trimSuffix(name string) string {
 	return strings.TrimSuffix(name, ".go")
 }
 
-func newChecker(path string) (*checker, error) {
+func newCheckerPath(path string) (*checker, error) {
 	pkg, err := build.Import(path, "", 0)
 	if err != nil {
 		return nil, err
 	}
 
-	var srcFiles []string
-	srcFiles = append(srcFiles, pkg.GoFiles...)
-	srcFiles = append(srcFiles, pkg.CgoFiles...)
+	return newChecker(pkg), nil
+}
 
+func newChecker(pkg *build.Package) *checker {
 	fset := token.NewFileSet()
 	return &checker{
-		path:     path,
+		path:     pkg.ImportPath,
 		buildPkg: pkg,
 		fset:     fset,
-	}, nil
+	}
 }
 
 func (c *checker) listFiles() ([]*ast.File, error) {
@@ -133,7 +133,7 @@ func (c *checker) checkRect(files []*ast.File, h, w int) []*lexing.Error {
 
 // CheckAll checks everything for a package.
 func CheckAll(path string, h, w int) []*lexing.Error {
-	c, err := newChecker(path)
+	c, err := newCheckerPath(path)
 	if err != nil {
 		return lexing.SingleErr(err)
 	}
