@@ -66,7 +66,8 @@ func (c *checker) typesCheck(files []*ast.File) (
 	*types.Info, *types.Package, error,
 ) {
 	config := &types.Config{
-		Importer: importer.Default(),
+		Importer:    importer.Default(),
+		FakeImportC: true,
 	}
 	info := &types.Info{
 		Uses: make(map[*ast.Ident]types.Object),
