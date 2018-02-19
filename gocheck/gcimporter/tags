@@ -1,0 +1,187 @@
+!_TAG_FILE_FORMAT	2
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted/
+!_TAG_PROGRAM_AUTHOR	Joel Stemmer	/stemmertech@gmail.com/
+!_TAG_PROGRAM_NAME	gotags
+!_TAG_PROGRAM_URL	https://github.com/jstemmer/gotags
+!_TAG_PROGRAM_VERSION	1.3.0	/go1.8/
+*reader	raw.go	49;"	e	access:private	ctype:byteReader	line:49	type:*reader
+BImportData	bimport_data.go	22;"	f	access:public	line:22	signature:(fset *token.FileSet, imports map[string]*types.Package, data []byte, path string)	type:int, *types.Package, error
+FindExportData	exportdata.go	44;"	f	access:public	line:44	signature:(r *bufio.Reader)	type:string, error
+FindPkg	gcimporter.go	88;"	f	access:public	line:88	signature:(path, srcDir string)	type:string, string
+Import	gcimporter.go	95;"	f	access:public	line:95	signature:(packages map[string]*types.Package, path, srcDir string)	type:*types.Package, error
+Import	importer.go	24;"	m	access:public	ctype:Importer	line:24	signature:(path string)	type:*types.Package, error
+ImportFrom	importer.go	30;"	m	access:public	ctype:Importer	line:30	signature:(path, srcDir string, mode types.ImportMode)	type:*types.Package, error
+Importer	importer.go	9;"	t	access:public	line:9	type:struct
+Len	bimport_data.go	14;"	m	access:public	ctype:byPath	line:14	signature:()	type:int
+Less	bimport_data.go	16;"	m	access:public	ctype:byPath	line:16	signature:(i, j int)	type:bool
+New	importer.go	16;"	f	access:public	ctype:Importer	line:16	signature:(ctx *build.Context)	type:*Importer
+ReadByte	raw.go	52;"	m	access:public	ctype:byteReader	line:52	signature:()	type:byte, error
+String	any_type.go	10;"	m	access:public	ctype:anyType	line:10	signature:()	type:string
+String	ddd_slice.go	15;"	m	access:public	ctype:dddSlice	line:15	signature:()	type:string
+Swap	bimport_data.go	15;"	m	access:public	ctype:byPath	line:15	signature:(i, j int)
+Underlying	any_type.go	9;"	m	access:public	ctype:anyType	line:9	signature:()	type:types.Type
+Underlying	ddd_slice.go	14;"	m	access:public	ctype:dddSlice	line:14	signature:()	type:types.Type
+aliasTag	tags.go	41;"	c	access:private	line:41
+anyType	any_type.go	7;"	t	access:private	line:7	type:struct
+arrayTag	tags.go	19;"	c	access:private	line:19
+buf	reader.go	12;"	w	access:private	ctype:reader	line:12	type:[]byte
+bufio	exportdata.go	10;"	i	line:10
+bufio	gcimporter.go	9;"	i	line:9
+byPath	bimport_data.go	12;"	t	access:private	line:12	type:[]*types.Package
+byteReader	raw.go	48;"	t	access:private	line:48	type:struct
+chanTag	tags.go	27;"	c	access:private	line:27
+complexTag	tags.go	35;"	c	access:private	line:35
+constTag	tags.go	11;"	c	access:private	line:11
+ctx	importer.go	10;"	w	access:private	ctype:Importer	line:10	type:*build.Context
+data	reader.go	10;"	w	access:private	ctype:reader	line:10	type:[]byte
+dddSlice	ddd_slice.go	10;"	t	access:private	line:10	type:struct
+dddTag	tags.go	21;"	c	access:private	line:21
+debug	gcimporter.go	22;"	c	access:private	line:22
+debugFormat	reader.go	31;"	w	access:private	ctype:reader	line:31	type:bool
+declare	declare.go	7;"	f	access:private	line:7	signature:(obj types.Object)
+deltaNewFile	pos.go	13;"	c	access:private	line:13
+deref	deref.go	7;"	f	access:private	line:7	signature:(typ types.Type)	type:types.Type
+elem	ddd_slice.go	11;"	w	access:private	ctype:dddSlice	line:11	type:types.Type
+encoding/binary	raw.go	4;"	i	line:4
+endTag	tags.go	15;"	c	access:private	line:15
+errorf	errorf.go	7;"	f	access:private	line:7	signature:(format string, args )
+exported	exported.go	8;"	f	access:private	line:8	signature:(name string)	type:bool
+fakeLines	pos.go	9;"	v	access:private	line:9	type:[]int
+fakeLinesOnce	pos.go	10;"	v	access:private	line:10	type:sync.Once
+falseTag	tags.go	30;"	c	access:private	line:30
+files	reader.go	28;"	w	access:private	ctype:reader	line:28	type:map[string]*token.File
+findPkgContext	gcimporter.go	26;"	f	access:private	line:26	signature:(ctx *build.Context, path, srcDir string)	type:string, string
+floatTag	tags.go	33;"	c	access:private	line:33
+fmt	bimport_data.go	4;"	i	line:4
+fmt	errorf.go	4;"	i	line:4
+fmt	exportdata.go	11;"	i	line:11
+fmt	gcimporter.go	10;"	i	line:10
+fractionTag	tags.go	34;"	c	access:private	line:34
+fset	reader.go	27;"	w	access:private	ctype:reader	line:27	type:*token.FileSet
+funcTag	tags.go	14;"	c	access:private	line:14
+gcimporter	any_type.go	1;"	p	line:1
+gcimporter	bimport.go	1;"	p	line:1
+gcimporter	bimport_data.go	1;"	p	line:1
+gcimporter	ddd_slice.go	1;"	p	line:1
+gcimporter	declare.go	1;"	p	line:1
+gcimporter	deref.go	1;"	p	line:1
+gcimporter	errorf.go	1;"	p	line:1
+gcimporter	exportdata.go	7;"	p	line:7
+gcimporter	exported.go	1;"	p	line:1
+gcimporter	field_name.go	1;"	p	line:1
+gcimporter	float.go	1;"	p	line:1
+gcimporter	gcimporter.go	6;"	p	line:6
+gcimporter	importer.go	1;"	p	line:1
+gcimporter	int.go	1;"	p	line:1
+gcimporter	marker.go	1;"	p	line:1
+gcimporter	path.go	1;"	p	line:1
+gcimporter	pkg.go	1;"	p	line:1
+gcimporter	pos.go	1;"	p	line:1
+gcimporter	predeclared.go	1;"	p	line:1
+gcimporter	raw.go	1;"	p	line:1
+gcimporter	reader.go	1;"	p	line:1
+gcimporter	string.go	1;"	p	line:1
+gcimporter	tags.go	1;"	p	line:1
+gcimporter	type.go	1;"	p	line:1
+gcimporter	value.go	1;"	p	line:1
+go/build	gcimporter.go	11;"	i	line:11
+go/build	importer.go	4;"	i	line:4
+go/constant	float.go	4;"	i	line:4
+go/constant	value.go	4;"	i	line:4
+go/token	bimport_data.go	5;"	i	line:5
+go/token	float.go	5;"	i	line:5
+go/token	gcimporter.go	12;"	i	line:12
+go/token	pos.go	4;"	i	line:4
+go/token	reader.go	4;"	i	line:4
+go/token	type.go	4;"	i	line:4
+go/token	value.go	5;"	i	line:5
+go/types	any_type.go	4;"	i	line:4
+go/types	bimport.go	4;"	i	line:4
+go/types	bimport_data.go	6;"	i	line:6
+go/types	ddd_slice.go	4;"	i	line:4
+go/types	declare.go	4;"	i	line:4
+go/types	deref.go	4;"	i	line:4
+go/types	field_name.go	4;"	i	line:4
+go/types	gcimporter.go	13;"	i	line:13
+go/types	importer.go	5;"	i	line:5
+go/types	pkg.go	4;"	i	line:4
+go/types	predeclared.go	4;"	i	line:4
+go/types	reader.go	5;"	i	line:5
+go/types	tags.go	4;"	i	line:4
+go/types	type.go	5;"	i	line:5
+importContext	gcimporter.go	101;"	f	access:private	line:101	signature:(ctx *build.Context, packages map[string]*types.Package, path, srcDir string)	type:*types.Package, error
+importpath	reader.go	11;"	w	access:private	ctype:reader	line:11	type:string
+imports	reader.go	9;"	w	access:private	ctype:reader	line:9	type:map[string]*types.Package
+int64Tag	tags.go	32;"	c	access:private	line:32
+interfaceList	reader.go	20;"	w	access:private	ctype:reader	line:20	type:[]*types.Interface
+interfaceTag	tags.go	25;"	c	access:private	line:25
+io	exportdata.go	12;"	i	line:12
+io	gcimporter.go	14;"	i	line:14
+io/ioutil	gcimporter.go	15;"	i	line:15
+mapTag	tags.go	26;"	c	access:private	line:26
+namedTag	tags.go	18;"	c	access:private	line:18
+nilTag	tags.go	37;"	c	access:private	line:37
+objTag	tags.go	45;"	f	access:private	line:45	signature:(obj types.Object)	type:int
+os	gcimporter.go	16;"	i	line:16
+packageTag	tags.go	10;"	c	access:private	line:10
+packages	importer.go	11;"	w	access:private	ctype:Importer	line:11	type:map[string]*types.Package
+path/filepath	gcimporter.go	17;"	i	line:17
+pathList	reader.go	17;"	w	access:private	ctype:reader	line:17	type:[]string
+pkgExts	gcimporter.go	24;"	v	access:private	line:24
+pkgList	reader.go	18;"	w	access:private	ctype:reader	line:18	type:[]*types.Package
+pointerTag	tags.go	23;"	c	access:private	line:23
+posInfoFormat	reader.go	24;"	w	access:private	ctype:reader	line:24	type:bool
+predeclared	predeclared.go	7;"	v	access:private	line:7
+prevFile	reader.go	25;"	w	access:private	ctype:reader	line:25	type:string
+prevLine	reader.go	26;"	w	access:private	ctype:reader	line:26	type:int
+read	reader.go	32;"	w	access:private	ctype:reader	line:32	type:int
+readField	type.go	262;"	f	access:private	line:262	signature:(p *reader, parent *types.Package)	type:*types.Var, string
+readFieldList	type.go	289;"	f	access:private	line:289	signature:(p *reader, parent *types.Package)	type:[]*types.Var, []string
+readFieldName	field_name.go	7;"	f	access:private	line:7	signature:(p *reader, parent *types.Package)	type:*types.Package, string, bool
+readFloat	float.go	8;"	f	access:private	line:8	signature:(p *reader)	type:constant.Value
+readGopackHeader	exportdata.go	17;"	f	access:private	line:17	signature:(r *bufio.Reader)	type:string, int, error
+readInt	int.go	11;"	f	access:private	line:11	signature:(p *reader)	type:int
+readInt64	int.go	3;"	f	access:private	line:3	signature:(p *reader)	type:int64
+readMarker	marker.go	3;"	f	access:private	line:3	signature:(p *reader, want byte)
+readMethod	type.go	253;"	f	access:private	line:253	signature:(p *reader, parent *types.Package)	type:*types.Func
+readMethodList	type.go	242;"	f	access:private	line:242	signature:(p *reader, parent *types.Package)	type:[]*types.Func
+readObj	bimport.go	7;"	f	access:private	line:7	signature:(p *reader, tag int)
+readParam	type.go	194;"	f	access:private	line:194	signature:(p *reader, named bool)	type:*types.Var, bool
+readParamList	type.go	222;"	f	access:private	line:222	signature:(p *reader)	type:*types.Tuple, bool
+readPath	path.go	7;"	f	access:private	line:7	signature:(p *reader)	type:string
+readPkg	pkg.go	7;"	f	access:private	line:7	signature:(p *reader)	type:*types.Package
+readPos	pos.go	15;"	f	access:private	line:15	signature:(p *reader)	type:token.Pos
+readQualifiedName	pkg.go	59;"	f	access:private	line:59	signature:(p *reader)	type:*types.Package, string
+readRawByte	raw.go	28;"	f	access:private	line:28	signature:(p *reader)	type:byte
+readRawInt64	raw.go	17;"	f	access:private	line:17	signature:(p *reader)	type:int64
+readRawStringln	raw.go	8;"	f	access:private	line:8	signature:(p *reader, b byte)	type:string
+readString	string.go	3;"	f	access:private	line:3	signature:(p *reader)	type:string
+readTagOrIndex	tags.go	68;"	f	access:private	line:68	signature:(p *reader)	type:int
+readType	type.go	13;"	f	access:private	line:13	signature:(p *reader, parent *types.Package)	type:types.Type
+readValue	value.go	8;"	f	access:private	line:8	signature:(p *reader)	type:constant.Value
+reader	reader.go	8;"	t	access:private	line:8	type:struct
+record	reader.go	35;"	m	access:private	ctype:reader	line:35	signature:(t types.Type)
+sameObj	tags.go	61;"	f	access:private	line:61	signature:(a, b types.Object)	type:bool
+signatureTag	tags.go	24;"	c	access:private	line:24
+sliceTag	tags.go	20;"	c	access:private	line:20
+sort	bimport_data.go	7;"	i	line:7
+strList	reader.go	16;"	w	access:private	ctype:reader	line:16	type:[]string
+strconv	bimport_data.go	8;"	i	line:8
+strconv	exportdata.go	13;"	i	line:13
+stringTag	tags.go	36;"	c	access:private	line:36
+strings	bimport_data.go	9;"	i	line:9
+strings	exportdata.go	14;"	i	line:14
+strings	gcimporter.go	18;"	i	line:18
+strings	path.go	4;"	i	line:4
+strings	type.go	6;"	i	line:6
+structTag	tags.go	22;"	c	access:private	line:22
+sync	pos.go	5;"	i	line:5
+trackAllTypes	reader.go	21;"	w	access:private	ctype:reader	line:21	type:bool
+trueTag	tags.go	31;"	c	access:private	line:31
+typList	reader.go	19;"	w	access:private	ctype:reader	line:19	type:[]types.Type
+typeTag	tags.go	12;"	c	access:private	line:12
+unicode	exported.go	4;"	i	line:4
+unicode/utf8	exported.go	5;"	i	line:5
+unknownTag	tags.go	38;"	c	access:private	line:38
+varTag	tags.go	13;"	c	access:private	line:13
+version	reader.go	13;"	w	access:private	ctype:reader	line:13	type:int
