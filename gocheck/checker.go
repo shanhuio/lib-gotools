@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"go/ast"
 	"go/build"
-	"go/importer"
 	"go/parser"
 	"go/token"
 	"go/types"
@@ -14,10 +13,12 @@ import (
 
 	"shanhu.io/smlvm/dagvis"
 	"shanhu.io/smlvm/lexing"
+	"shanhu.io/tools/gocheck/gcimporter"
 )
 
 type checker struct {
 	path     string
+	ctx      *build.Context
 	buildPkg *build.Package
 	fset     *token.FileSet
 }
@@ -26,18 +27,19 @@ func trimSuffix(name string) string {
 	return strings.TrimSuffix(name, ".go")
 }
 
-func newCheckerPath(path string) (*checker, error) {
-	pkg, err := build.Import(path, "", 0)
+func newCheckerPath(ctx *build.Context, path string) (*checker, error) {
+	pkg, err := ctx.Import(path, "", 0)
 	if err != nil {
 		return nil, err
 	}
 
-	return newChecker(pkg), nil
+	return newChecker(ctx, pkg), nil
 }
 
-func newChecker(pkg *build.Package) *checker {
+func newChecker(ctx *build.Context, pkg *build.Package) *checker {
 	fset := token.NewFileSet()
 	return &checker{
+		ctx:      ctx,
 		path:     pkg.ImportPath,
 		buildPkg: pkg,
 		fset:     fset,
@@ -66,7 +68,7 @@ func (c *checker) typesCheck(files []*ast.File) (
 	*types.Info, *types.Package, error,
 ) {
 	config := &types.Config{
-		Importer:    importer.Default(),
+		Importer:    gcimporter.New(c.ctx),
 		FakeImportC: true,
 	}
 	info := &types.Info{
@@ -134,7 +136,7 @@ func (c *checker) checkRect(files []*ast.File, h, w int) []*lexing.Error {
 
 // CheckAll checks everything for a package.
 func CheckAll(path string, h, w int) []*lexing.Error {
-	c, err := newCheckerPath(path)
+	c, err := newCheckerPath(&build.Default, path)
 	if err != nil {
 		return lexing.SingleErr(err)
 	}

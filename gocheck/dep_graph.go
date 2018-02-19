@@ -7,8 +7,8 @@ import (
 )
 
 // DepGraph returns the dependency graph for files in a package.
-func DepGraph(path string) (*dagvis.Graph, error) {
-	c, err := newCheckerPath(path)
+func DepGraph(ctx *build.Context, path string) (*dagvis.Graph, error) {
+	c, err := newCheckerPath(ctx, path)
 	if err != nil {
 		return nil, err
 	}
@@ -22,8 +22,10 @@ func DepGraph(path string) (*dagvis.Graph, error) {
 }
 
 // DepGraphPkg returns the dependency graph for files in a loaded package.
-func DepGraphPkg(pkg *build.Package) (*dagvis.Graph, error) {
-	c := newChecker(pkg)
+func DepGraphPkg(ctx *build.Context, pkg *build.Package) (
+	*dagvis.Graph, error,
+) {
+	c := newChecker(ctx, pkg)
 	files, err := c.listFiles()
 	if err != nil {
 		return nil, err
