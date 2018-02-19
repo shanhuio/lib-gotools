@@ -3,7 +3,7 @@ language: go
 go_import_path: shanhu.io/tools
 
 go:
-    - 1.10
+    - "1.10"
 
 install:
     - go get ./...
