@@ -9,7 +9,6 @@ import (
 	"bufio"
 	"fmt"
 	"go/build"
-	"go/token"
 	"go/types"
 	"io"
 	"io/ioutil"
@@ -149,8 +148,7 @@ func importContext(
 		if err == nil {
 			// TODO(gri): allow clients of go/importer to provide a FileSet.
 			// Or, define a new standard go/types/gcexportdata package.
-			fset := token.NewFileSet()
-			_, pkg, err = BImportData(fset, packages, data, id)
+			pkg, err = bimport(packages, data, id)
 			return
 		}
 	default:

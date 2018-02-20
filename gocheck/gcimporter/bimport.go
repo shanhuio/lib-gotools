@@ -15,14 +15,14 @@ func (a byPath) Len() int           { return len(a) }
 func (a byPath) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
 func (a byPath) Less(i, j int) bool { return a[i].Path() < a[j].Path() }
 
-// BImportData imports a package from the serialized package data
-// and returns the number of bytes consumed and a reference to the package.
-// If the export data version is not recognized or the format is otherwise
-// compromised, an error is returned.
-func BImportData(
-	fset *token.FileSet, imports map[string]*types.Package,
-	data []byte, path string,
-) (_ int, pkg *types.Package, err error) {
+// bimport imports a package from the serialized package data and returns the
+// number of bytes consumed and a reference to the package.  If the export data
+// version is not recognized or the format is otherwise compromised, an error
+// is returned.
+func bimport(
+	imports map[string]*types.Package, data []byte, path string,
+) (pkg *types.Package, err error) {
+	fset := token.NewFileSet()
 	// catch panics and return them as errors
 	defer func() {
 		if e := recover(); e != nil {
@@ -134,5 +134,5 @@ func BImportData(
 	// package was imported completely and without errors
 	pkg.MarkComplete()
 
-	return p.read, pkg, nil
+	return pkg, nil
 }
