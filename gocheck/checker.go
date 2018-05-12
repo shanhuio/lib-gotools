@@ -151,7 +151,7 @@ func CheckAll(path string, h, w int) []*lexing.Error {
 		return lexing.SingleErr(err)
 	}
 
-	if _, err := dagvis.IsDAG(g); err != nil {
+	if err := dagvis.CheckDAG(g); err != nil {
 		return lexing.SingleErr(err)
 	}
 
