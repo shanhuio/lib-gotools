@@ -13,7 +13,7 @@ import (
 
 	"shanhu.io/smlvm/dagvis"
 	"shanhu.io/smlvm/lexing"
-	gcimporter "shanhu.io/tools/gocheck/gcimporter10"
+	"shanhu.io/tools/gocheck/gcimporter"
 )
 
 type checker struct {
