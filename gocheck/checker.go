@@ -11,9 +11,9 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/h8liu/gcimporter"
 	"shanhu.io/smlvm/dagvis"
 	"shanhu.io/smlvm/lexing"
-	"shanhu.io/tools/gocheck/gcimporter"
 )
 
 type checker struct {
