@@ -21,28 +21,37 @@ type checker struct {
 	ctx      *build.Context
 	buildPkg *build.Package
 	fset     *token.FileSet
+	alias    *gcimporter.AliasMap
 }
 
 func trimSuffix(name string) string {
 	return strings.TrimSuffix(name, ".go")
 }
 
-func newCheckerPath(ctx *build.Context, path string) (*checker, error) {
+func newCheckerPath(
+	ctx *build.Context, path string, alias *gcimporter.AliasMap,
+) (*checker, error) {
+	if alias != nil {
+		path = alias.Map(path)
+	}
 	pkg, err := ctx.Import(path, "", 0)
 	if err != nil {
 		return nil, err
 	}
 
-	return newChecker(ctx, pkg), nil
+	return newChecker(ctx, pkg, alias), nil
 }
 
-func newChecker(ctx *build.Context, pkg *build.Package) *checker {
+func newChecker(
+	ctx *build.Context, pkg *build.Package, alias *gcimporter.AliasMap,
+) *checker {
 	fset := token.NewFileSet()
 	return &checker{
 		ctx:      ctx,
 		path:     pkg.ImportPath,
 		buildPkg: pkg,
 		fset:     fset,
+		alias:    alias,
 	}
 }
 
@@ -68,7 +77,7 @@ func (c *checker) typesCheck(files []*ast.File) (
 	*types.Info, *types.Package, error,
 ) {
 	config := &types.Config{
-		Importer:    gcimporter.New(c.ctx, nil),
+		Importer:    gcimporter.New(c.ctx, c.alias),
 		FakeImportC: true,
 	}
 	info := &types.Info{
@@ -136,7 +145,7 @@ func (c *checker) checkRect(files []*ast.File, h, w int) []*lexing.Error {
 
 // CheckAll checks everything for a package.
 func CheckAll(path string, h, w int) []*lexing.Error {
-	c, err := newCheckerPath(&build.Default, path)
+	c, err := newCheckerPath(&build.Default, path, nil)
 	if err != nil {
 		return lexing.SingleErr(err)
 	}
