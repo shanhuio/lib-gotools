@@ -68,7 +68,7 @@ func (c *checker) typesCheck(files []*ast.File) (
 	*types.Info, *types.Package, error,
 ) {
 	config := &types.Config{
-		Importer:    gcimporter.New(c.ctx),
+		Importer:    gcimporter.New(c.ctx, nil),
 		FakeImportC: true,
 	}
 	info := &types.Info{
