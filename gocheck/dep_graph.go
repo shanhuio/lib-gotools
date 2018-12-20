@@ -3,7 +3,7 @@ package gocheck
 import (
 	"go/build"
 
-	"github.com/h8liu/gcimporter"
+	"shanhu.io/gcimporter"
 	"shanhu.io/smlvm/dagvis"
 )
 

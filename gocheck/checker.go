@@ -11,7 +11,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/h8liu/gcimporter"
+	"shanhu.io/gcimporter"
 	"shanhu.io/smlvm/dagvis"
 	"shanhu.io/smlvm/lexing"
 )
