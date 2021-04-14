@@ -13,7 +13,7 @@ import (
 	"shanhu.io/tools/godep"
 )
 
-func ne(err error) {
+func exitIf(err error) {
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(-1)
@@ -23,28 +23,28 @@ func ne(err error) {
 func saveLayoutBytes(bs []byte, f string) {
 	if strings.HasSuffix(f, ".js") {
 		out, err := os.Create(f)
-		ne(err)
+		exitIf(err)
 		defer out.Close()
 
 		_, err = io.WriteString(out, "var dag = ")
-		ne(err)
+		exitIf(err)
 
 		_, err = out.Write(bs)
-		ne(err)
+		exitIf(err)
 
 		_, err = io.WriteString(out, ";")
-		ne(err)
+		exitIf(err)
 
-		ne(out.Close())
+		exitIf(out.Close())
 		return
 	}
 
-	ne(ioutil.WriteFile(f, bs, 0644))
+	exitIf(ioutil.WriteFile(f, bs, 0644))
 }
 
 func saveLayout(g *dagvis.Graph, f string) {
 	m, err := dagvis.LayoutJSON(g)
-	ne(err)
+	exitIf(err)
 	saveLayoutBytes(m, f)
 }
 
@@ -77,7 +77,7 @@ func main() {
 	flag.Parse()
 
 	g, e := repoDep(*repo)
-	ne(e)
+	exitIf(e)
 
 	saveLayout(g, *out)
 }
