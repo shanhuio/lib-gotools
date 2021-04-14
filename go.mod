@@ -3,9 +3,8 @@ module shanhu.io/tools
 go 1.16
 
 require (
-	golang.org/x/sys v0.0.0-20210403161142-5e06dd20ab57 // indirect
 	golang.org/x/tools v0.1.0
 	shanhu.io/gcimporter v0.0.0-20200812070237-ef738bfd5e13
-	shanhu.io/misc v0.0.0-20210412000542-0629e6708c95
-	shanhu.io/smlvm v0.0.0-20200716024343-85bcec6c19bb
+	shanhu.io/misc v0.0.0-20210414052743-c1d93bfd3606
+	shanhu.io/smlvm v0.0.0-20210412023623-f8fb38ab4863
 )
