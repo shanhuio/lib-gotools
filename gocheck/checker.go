@@ -1,14 +1,12 @@
 package gocheck
 
 import (
-	"fmt"
 	"go/ast"
 	"go/build"
 	"go/parser"
 	"go/token"
 	"go/types"
 	"path/filepath"
-	"sort"
 	"strings"
 
 	"shanhu.io/gcimporter"
@@ -17,11 +15,13 @@ import (
 )
 
 type checker struct {
-	path     string
+	path string
+
 	ctx      *build.Context
 	buildPkg *build.Package
-	fset     *token.FileSet
-	alias    *gcimporter.AliasMap
+
+	fset  *token.FileSet
+	alias *gcimporter.AliasMap
 }
 
 func trimSuffix(name string) string {
@@ -97,50 +97,13 @@ func (c *checker) depGraph(files []*ast.File) (*dagvis.Graph, error) {
 		return nil, err
 	}
 
-	depsMap := make(map[token.Pos]map[token.Pos]bool)
-	for _, f := range files {
-		depsMap[filePos(c.fset, f.Pos())] = make(map[token.Pos]bool)
+	in := &depGraphInput{
+		fset:  c.fset,
+		files: files,
+		info:  info,
+		pkg:   typesPkg,
 	}
-
-	for use, obj := range info.Uses {
-		if obj.Pkg() != typesPkg {
-			continue // ignore inter-pkg refs
-		}
-
-		fused := filePos(c.fset, use.NamePos)
-		fdef := filePos(c.fset, obj.Pos())
-
-		if fused == fdef {
-			continue
-		}
-
-		if _, found := depsMap[fdef]; !found {
-			panic(fmt.Errorf("%s not found in %s", use.Name, c.path))
-		}
-		depsMap[fdef][fused] = true
-	}
-
-	ret := make(map[string][]string)
-	for f, deps := range depsMap {
-		var lst []string
-		for dep := range deps {
-			lst = append(lst, trimBase(filename(c.fset, dep)))
-		}
-		sort.Strings(lst)
-		ret[trimBase(filename(c.fset, f))] = lst
-	}
-	return &dagvis.Graph{Nodes: ret}, nil
-}
-
-func (c *checker) checkRect(files []*ast.File, h, w int) []*lexing.Error {
-	var names []string
-	for _, f := range files {
-		tokFile := c.fset.File(f.Pos())
-		name := tokFile.Name()
-		names = append(names, name)
-	}
-
-	return CheckRect(names, h, w)
+	return pkgDepGraph(in)
 }
 
 // CheckAll checks everything for a package.
@@ -164,7 +127,8 @@ func CheckAll(path string, h, w int) []*lexing.Error {
 		return lexing.SingleErr(err)
 	}
 
-	if errs := c.checkRect(files, h, w); errs != nil {
+	names := listFileNames(c.fset, files)
+	if errs := CheckRect(names, h, w); errs != nil {
 		return errs
 	}
 
