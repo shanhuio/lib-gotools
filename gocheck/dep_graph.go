@@ -11,27 +11,25 @@ import (
 func DepGraph(
 	ctx *build.Context, path string, alias *gcimporter.AliasMap,
 ) (*dagvis.Graph, error) {
-	c, err := newCheckerPath(ctx, path, alias)
+	l, err := newLoaderPath(ctx, path, alias)
 	if err != nil {
 		return nil, err
 	}
-
-	files, err := c.listFiles()
+	c, err := l.checker()
 	if err != nil {
 		return nil, err
 	}
-
-	return c.depGraph(files)
+	return c.depGraph()
 }
 
 // DepGraphPkg returns the dependency graph for files in a loaded package.
 func DepGraphPkg(
 	ctx *build.Context, pkg *build.Package, alias *gcimporter.AliasMap,
 ) (*dagvis.Graph, error) {
-	c := newChecker(ctx, pkg, alias)
-	files, err := c.listFiles()
+	l := newLoader(ctx, pkg, alias)
+	c, err := l.checker()
 	if err != nil {
 		return nil, err
 	}
-	return c.depGraph(files)
+	return c.depGraph()
 }

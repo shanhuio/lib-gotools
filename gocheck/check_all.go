@@ -1,39 +1,15 @@
 package gocheck
 
 import (
-	"go/ast"
+	"go/build"
 	"go/token"
 
 	"golang.org/x/tools/go/packages"
 	"shanhu.io/misc/errcode"
-	"shanhu.io/smlvm/dagvis"
 	"shanhu.io/smlvm/lexing"
 )
 
-type modChecker struct {
-	path string
-	pkg  *packages.Package
-	fset *token.FileSet
-}
-
-func newModChecker(pkg *packages.Package) *modChecker {
-	return &modChecker{
-		path: pkg.PkgPath,
-		pkg:  pkg,
-		fset: pkg.Fset,
-	}
-}
-
-func (c *modChecker) depGraph(files []*ast.File) (*dagvis.Graph, error) {
-	in := &depGraphInput{
-		fset:  c.fset,
-		files: files,
-		info:  c.pkg.TypesInfo,
-		pkg:   c.pkg.Types,
-	}
-	return pkgDepGraph(in)
-}
-
+// ModCheckAll performs all checks on the package.
 func ModCheckAll(dir, pkg string, h, w int) []*lexing.Error {
 	var loadMode packages.LoadMode
 	for _, m := range []packages.LoadMode{
@@ -62,23 +38,26 @@ func ModCheckAll(dir, pkg string, h, w int) []*lexing.Error {
 		return lexing.SingleErr(err)
 	}
 
-	c := newModChecker(pkgs[0])
+	p := pkgs[0]
 
-	files := c.pkg.Syntax
+	c := &checker{
+		fset:  fset,
+		files: p.Syntax,
+		info:  p.TypesInfo,
+		pkg:   p.Types,
+	}
+	return c.checkAll(h, w)
+}
 
-	g, err := c.depGraph(files)
+// CheckAll checks everything for a package.
+func CheckAll(path string, h, w int) []*lexing.Error {
+	l, err := newLoaderPath(&build.Default, path, nil)
 	if err != nil {
 		return lexing.SingleErr(err)
 	}
-
-	if err := dagvis.CheckDAG(g); err != nil {
+	c, err := l.checker()
+	if err != nil {
 		return lexing.SingleErr(err)
 	}
-
-	names := listFileNames(fset, files)
-	if errs := CheckRect(names, h, w); errs != nil {
-		return errs
-	}
-
-	return CheckLineComment(c.fset, files)
+	return c.checkAll(h, w)
 }
