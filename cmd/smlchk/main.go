@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"shanhu.io/misc/goload"
-	"shanhu.io/smlvm/lexing"
+	"shanhu.io/text/lexing"
 	"shanhu.io/tools/gocheck"
 )
 

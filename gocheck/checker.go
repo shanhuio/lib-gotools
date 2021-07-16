@@ -7,8 +7,8 @@ import (
 	"go/types"
 	"sort"
 
-	"shanhu.io/smlvm/dagvis"
-	"shanhu.io/smlvm/lexing"
+	"shanhu.io/dags"
+	"shanhu.io/text/lexing"
 )
 
 type checker struct {
@@ -18,7 +18,7 @@ type checker struct {
 	pkg   *types.Package
 }
 
-func (c *checker) depGraph() (*dagvis.Graph, error) {
+func (c *checker) depGraph() (*dags.Graph, error) {
 	depsMap := make(map[token.Pos]map[token.Pos]bool)
 	for _, f := range c.files {
 		depsMap[filePos(c.fset, f.Pos())] = make(map[token.Pos]bool)
@@ -52,7 +52,7 @@ func (c *checker) depGraph() (*dagvis.Graph, error) {
 		sort.Strings(lst)
 		ret[trimBase(filename(c.fset, f))] = lst
 	}
-	return &dagvis.Graph{Nodes: ret}, nil
+	return &dags.Graph{Nodes: ret}, nil
 }
 
 func (c *checker) checkRect(h, w int) []*lexing.Error {
@@ -66,7 +66,7 @@ func (c *checker) checkAll(h, w int) []*lexing.Error {
 		return lexing.SingleErr(err)
 	}
 
-	if err := dagvis.CheckDAG(g); err != nil {
+	if err := dags.CheckDAG(g); err != nil {
 		return lexing.SingleErr(err)
 	}
 

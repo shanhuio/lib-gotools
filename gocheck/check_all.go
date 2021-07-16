@@ -6,7 +6,7 @@ import (
 
 	"golang.org/x/tools/go/packages"
 	"shanhu.io/misc/errcode"
-	"shanhu.io/smlvm/lexing"
+	"shanhu.io/text/lexing"
 )
 
 // ModCheckAll performs all checks on the package.

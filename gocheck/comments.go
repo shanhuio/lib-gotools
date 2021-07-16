@@ -7,7 +7,7 @@ import (
 	"io/ioutil"
 	"strings"
 
-	"shanhu.io/smlvm/lexing"
+	"shanhu.io/text/lexing"
 )
 
 func validLineCommentContent(s string) bool {

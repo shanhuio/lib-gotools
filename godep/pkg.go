@@ -8,7 +8,7 @@ import (
 	"go/build"
 	"golang.org/x/tools/go/buildutil"
 
-	"shanhu.io/smlvm/dagvis"
+	"shanhu.io/dags"
 )
 
 func skipPkg(p string) bool {
@@ -82,7 +82,7 @@ func (d *pkgDep) imports(p string) ([]string, error) {
 	return ret, nil
 }
 
-func (d *pkgDep) build() (*dagvis.Graph, error) {
+func (d *pkgDep) build() (*dags.Graph, error) {
 	d.pkgSet = make(map[string]struct{})
 	for _, p := range d.pkgs {
 		d.pkgSet[p] = struct{}{}
@@ -103,7 +103,7 @@ func (d *pkgDep) build() (*dagvis.Graph, error) {
 		return nil, e
 	}
 
-	g := &dagvis.Graph{Nodes: ret}
+	g := &dags.Graph{Nodes: ret}
 	return g.Reverse(), nil
 }
 
@@ -121,13 +121,13 @@ func (d *pkgDep) check(g map[string][]string) error {
 }
 
 // PkgDep retunrs the dependency graph for the particular packages.
-func PkgDep(pkgs []string) (*dagvis.Graph, error) {
+func PkgDep(pkgs []string) (*dags.Graph, error) {
 	d := &pkgDep{pkgs: pkgs}
 	return d.build()
 }
 
 // StdDep returns the dependency graph for Go std library.
-func StdDep() (*dagvis.Graph, error) {
+func StdDep() (*dags.Graph, error) {
 	pkgs := ListStdPkgs()
 	return PkgDep(pkgs)
 }

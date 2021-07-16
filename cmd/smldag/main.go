@@ -8,8 +8,8 @@ import (
 	"os"
 	"strings"
 
+	"shanhu.io/dags"
 	"shanhu.io/misc/goload"
-	"shanhu.io/smlvm/dagvis"
 	"shanhu.io/tools/godep"
 )
 
@@ -42,13 +42,13 @@ func saveLayoutBytes(bs []byte, f string) {
 	exitIf(ioutil.WriteFile(f, bs, 0644))
 }
 
-func saveLayout(g *dagvis.Graph, f string) {
-	m, err := dagvis.LayoutJSON(g)
+func saveLayout(g *dags.Graph, f string) {
+	m, err := dags.LayoutJSON(g)
 	exitIf(err)
 	saveLayoutBytes(m, f)
 }
 
-func repoDep(repo string) (*dagvis.Graph, error) {
+func repoDep(repo string) (*dags.Graph, error) {
 	if repo == "" {
 		return godep.StdDep()
 	}
