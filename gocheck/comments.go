@@ -20,6 +20,9 @@ func validLineCommentContent(s string) bool {
 	if strings.HasPrefix(s, "\t") {
 		return true
 	}
+	if strings.HasPrefix(s, "go:build") {
+		return true
+	}
 	return false
 }
 
