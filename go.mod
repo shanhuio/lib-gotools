@@ -17,6 +17,6 @@ require (
 )
 
 replace (
-	shanhu.io/dags => ../../dags
+	shanhu.io/dags => ../../lib/dags
 	shanhu.io/lab/gcimporter => ../../lab/gcimporter
 )
