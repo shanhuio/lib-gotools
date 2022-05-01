@@ -10,7 +10,7 @@ import (
 
 	"shanhu.io/dags"
 	"shanhu.io/misc/goload"
-	"shanhu.io/tools/godep"
+	"shanhu.io/smlrepo/tools/godep"
 )
 
 func exitIf(err error) {

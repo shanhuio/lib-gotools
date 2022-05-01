@@ -4,7 +4,7 @@ import (
 	"go/build"
 
 	"shanhu.io/dags"
-	"shanhu.io/gcimporter"
+	"shanhu.io/lab/gcimporter"
 )
 
 // DepGraph returns the dependency graph for files in a package.

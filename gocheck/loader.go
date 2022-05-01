@@ -8,7 +8,7 @@ import (
 	"go/types"
 	"path/filepath"
 
-	"shanhu.io/gcimporter"
+	"shanhu.io/lab/gcimporter"
 )
 
 type loader struct {

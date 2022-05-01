@@ -6,8 +6,8 @@ import (
 	"os"
 
 	"shanhu.io/misc/goload"
+	"shanhu.io/smlrepo/tools/gocheck"
 	"shanhu.io/text/lexing"
-	"shanhu.io/tools/gocheck"
 )
 
 func errExit(err error) {
