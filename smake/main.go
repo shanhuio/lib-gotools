@@ -1,4 +1,4 @@
-package smake // import "shanhu.io/smlrepo/sml/smake"
+package smake // import "shanhu.io/smlrepo/tools/smake"
 
 import (
 	"fmt"
