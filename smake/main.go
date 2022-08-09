@@ -16,6 +16,7 @@
 package smake // import "shanhu.io/gotools/smake"
 
 import (
+	"flag"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -44,23 +45,28 @@ func usingGoMod() bool {
 	return strings.ToLower(v) != "off"
 }
 
-func run() error {
-	wd, err := workDir()
-	if err != nil {
-		return err
-	}
-
+func run(dir string) error {
 	mod := usingGoMod()
-	if mod {
-		root, err := findGoModuleRoot(wd)
-		if err != nil {
-			return errcode.Annotate(err, "find module root")
-		}
-		wd = root
-	}
 
-	if err := os.Chdir(wd); err != nil {
-		return err
+	if dir == "" {
+		wd, err := workDir()
+		if err != nil {
+			return err
+		}
+
+		if mod {
+			root, err := findGoModuleRoot(wd)
+			if err != nil {
+				return errcode.Annotate(err, "find module root")
+			}
+			wd = root
+		}
+
+		if err := os.Chdir(wd); err != nil {
+			return err
+		}
+
+		dir = wd
 	}
 
 	gopath, err := absGOPATH()
@@ -68,13 +74,16 @@ func run() error {
 		return err
 	}
 
-	c := newContext(gopath, wd, usingGoMod())
+	c := newContext(gopath, dir, mod)
 	return smake(c)
 }
 
 // Main is the entry point for smake.
 func Main() {
-	if err := run(); err != nil {
+	workDir := flag.String("dir", "", "work directory")
+	flag.Parse()
+
+	if err := run(*workDir); err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
