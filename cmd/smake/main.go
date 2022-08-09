@@ -1,7 +1,7 @@
 package main
 
 import (
-	"shanhu.io/smlrepo/tools/smake"
+	"shanhu.io/gotools/smake"
 )
 
 func main() { smake.Main() }

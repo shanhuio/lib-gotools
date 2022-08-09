@@ -1,2 +1,2 @@
-// Package tools contains Go language analyzing tools for E8VM.
-package tools // import "shanhu.io/smlrepo/tools"
+// Package gotools contains Go language analyzing tools.
+package gotools // import "shanhu.io/gotools"

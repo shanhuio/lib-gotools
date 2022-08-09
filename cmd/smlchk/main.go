@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"os"
 
+	"shanhu.io/gotools/gocheck"
 	"shanhu.io/misc/goload"
-	"shanhu.io/smlrepo/tools/gocheck"
 	"shanhu.io/text/lexing"
 )
 

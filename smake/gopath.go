@@ -7,8 +7,8 @@ import (
 	"sort"
 	"strings"
 
+	"shanhu.io/gotools/goenv"
 	"shanhu.io/misc/goload"
-	"shanhu.io/smlrepo/tools/goenv"
 )
 
 func absGOPATH() (string, error) {
