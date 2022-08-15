@@ -54,22 +54,26 @@ func run(dir string) error {
 	if dir == "" {
 		wd, err := workDir()
 		if err != nil {
-			return err
+			return errcode.Annotate(err, "get work dir")
 		}
-
-		if mod {
-			root, err := findGoModuleRoot(wd)
-			if err != nil {
-				return errcode.Annotate(err, "find module root")
-			}
-			wd = root
-		}
-
-		if err := os.Chdir(wd); err != nil {
-			return err
-		}
-
 		dir = wd
+	} else {
+		abs, err := filepath.Abs(dir)
+		if err != nil {
+			return errcode.Annotate(err, "get absolute work dir")
+		}
+		dir = abs
+	}
+
+	modRoot, err := findGoModuleRoot(dir)
+	if err != nil {
+		return errcode.Annotate(err, "find module root")
+	}
+
+	// This is to make sure that we run under the absolute directory path.
+	// Otherwise, some go tools will fail to recognize the directory structure.
+	if err := os.Chdir(dir); err != nil {
+		return err
 	}
 
 	gopath, err := absGOPATH()
@@ -77,7 +81,7 @@ func run(dir string) error {
 		return err
 	}
 
-	c := newContext(gopath, dir)
+	c := newContext(gopath, modRoot, dir)
 	return smake(c)
 }
 

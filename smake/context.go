@@ -24,12 +24,13 @@ import (
 )
 
 type context struct {
-	dir    string
-	env    []string
-	errLog io.Writer
+	dir     string
+	modRoot string
+	env     []string
+	errLog  io.Writer
 }
 
-func newContext(gopath, dir string) *context {
+func newContext(gopath, modRoot, dir string) *context {
 	var env []string
 	for _, v := range []string{
 		"PATH", "HOME", "SSH_AUTH_SOCK",
@@ -44,9 +45,10 @@ func newContext(gopath, dir string) *context {
 	}
 
 	return &context{
-		dir:    dir,
-		env:    env,
-		errLog: os.Stderr,
+		dir:     dir,
+		modRoot: modRoot,
+		env:     env,
+		errLog:  os.Stderr,
 	}
 }
 
