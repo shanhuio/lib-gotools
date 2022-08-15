@@ -20,19 +20,17 @@ import (
 	"io"
 	"os"
 	"os/exec"
-	"path/filepath"
 	"strings"
 )
 
 type context struct {
-	gopath string
 	dir    string
 	env    []string
 	errLog io.Writer
 }
 
 func newContext(gopath, dir string) *context {
-	env := []string{fmt.Sprintf("GOPATH=%s", gopath)}
+	var env []string
 	for _, v := range []string{
 		"PATH", "HOME", "SSH_AUTH_SOCK",
 	} {
@@ -41,9 +39,11 @@ func newContext(gopath, dir string) *context {
 		}
 	}
 	env = append(env, "GO111MODULE=on")
+	if gopath != "" {
+		env = append(env, fmt.Sprintf("GOPATH=%s", gopath))
+	}
 
 	return &context{
-		gopath: gopath,
 		dir:    dir,
 		env:    env,
 		errLog: os.Stderr,
@@ -51,8 +51,6 @@ func newContext(gopath, dir string) *context {
 }
 
 func (c *context) workDir() string { return c.dir }
-
-func (c *context) srcRoot() string { return filepath.Join(c.gopath, "src") }
 
 type execConfig struct {
 	Stdout io.Writer
