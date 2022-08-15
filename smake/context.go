@@ -29,10 +29,9 @@ type context struct {
 	dir    string
 	env    []string
 	errLog io.Writer
-	mod    bool
 }
 
-func newContext(gopath, dir string, gomod bool) *context {
+func newContext(gopath, dir string) *context {
 	env := []string{fmt.Sprintf("GOPATH=%s", gopath)}
 	for _, v := range []string{
 		"PATH", "HOME", "SSH_AUTH_SOCK",
@@ -41,24 +40,17 @@ func newContext(gopath, dir string, gomod bool) *context {
 			env = append(env, fmt.Sprintf("%s=%s", v, s))
 		}
 	}
-	if !gomod {
-		env = append(env, "GO111MODULE=off")
-	} else {
-		env = append(env, "GO111MODULE=on")
-	}
+	env = append(env, "GO111MODULE=on")
 
 	return &context{
 		gopath: gopath,
 		dir:    dir,
 		env:    env,
 		errLog: os.Stderr,
-		mod:    gomod,
 	}
 }
 
 func (c *context) workDir() string { return c.dir }
-
-func (c *context) gomod() bool { return c.mod }
 
 func (c *context) srcRoot() string { return filepath.Join(c.gopath, "src") }
 

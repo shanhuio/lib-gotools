@@ -47,6 +47,9 @@ func usingGoMod() bool {
 
 func run(dir string) error {
 	mod := usingGoMod()
+	if !mod {
+		return errcode.Internalf("must use go module")
+	}
 
 	if dir == "" {
 		wd, err := workDir()
@@ -74,7 +77,7 @@ func run(dir string) error {
 		return err
 	}
 
-	c := newContext(gopath, dir, mod)
+	c := newContext(gopath, dir)
 	return smake(c)
 }
 

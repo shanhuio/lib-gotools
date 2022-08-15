@@ -38,18 +38,6 @@ func absGOPATH() (string, error) {
 	return abs, nil
 }
 
-func pkgFromDir(src, dir string) (string, error) {
-	abs, err := filepath.Abs(dir)
-	if err != nil {
-		return "", err
-	}
-	p, err := filepath.Rel(src, abs)
-	if err != nil {
-		return "", err
-	}
-	return filepath.FromSlash(p), nil
-}
-
 type relPkg struct {
 	abs string
 	rel string

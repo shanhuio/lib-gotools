@@ -32,10 +32,6 @@ func smlchkPkg(c *context, pkg *relPkg) []*lexing.Error {
 	const textHeight = 320 // 20 lines for license notice.
 	const textWidth = 80
 
-	if !c.mod {
-		return gocheck.CheckAll(pkg.abs, textHeight, textWidth)
-	}
-
 	dir := filepath.Join(c.workDir(), filepath.FromSlash(pkg.rel))
 	return gocheck.ModCheckAll(dir, pkg.abs, textHeight, textWidth)
 }
@@ -97,7 +93,7 @@ func tags(c *context, pkgs []*relPkg) error {
 	return gotags.Write(files, "tags")
 }
 
-func listModPkgs(c *context) ([]*relPkg, error) {
+func listPkgs(c *context) ([]*relPkg, error) {
 	root := c.workDir()
 	modFile := filepath.Join(root, "go.mod")
 	mod, err := gomod.Parse(modFile)
@@ -112,24 +108,6 @@ func listModPkgs(c *context) ([]*relPkg, error) {
 	return relPkgs(mod.Name, scanRes)
 }
 
-func listPkgs(c *context) ([]*relPkg, error) {
-	if c.gomod() {
-		return listModPkgs(c)
-	}
-
-	rootPkg, err := pkgFromDir(c.srcRoot(), c.dir)
-	if err != nil {
-		return nil, errcode.Annotate(err, "find root package")
-	}
-
-	scanRes, err := goload.ScanPkgs(rootPkg, nil)
-	if err != nil {
-		return nil, errcode.Annotate(err, "scan packages")
-	}
-
-	return relPkgs(rootPkg, scanRes)
-}
-
 func smake(c *context) error {
 	pkgs, err := listPkgs(c)
 	if err != nil {
@@ -142,9 +120,6 @@ func smake(c *context) error {
 	}
 
 	installCmd := []string{"go", "install"}
-	if !c.gomod() {
-		installCmd = append(installCmd, "-i")
-	}
 
 	if err := c.execPkgs(pkgs, []string{
 		"gofmt", "-s", "-w", "-l",
