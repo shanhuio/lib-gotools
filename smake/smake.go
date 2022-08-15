@@ -94,7 +94,7 @@ func tags(c *context, pkgs []*relPkg) error {
 }
 
 func listPkgs(c *context) ([]*relPkg, error) {
-	root := c.workDir()
+	root := c.modRootDir()
 	modFile := filepath.Join(root, "go.mod")
 	mod, err := gomod.Parse(modFile)
 	if err != nil {

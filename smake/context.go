@@ -54,6 +54,8 @@ func newContext(gopath, modRoot, dir string) *context {
 
 func (c *context) workDir() string { return c.dir }
 
+func (c *context) modRootDir() string { return c.modRoot }
+
 type execConfig struct {
 	Stdout io.Writer
 	Stderr io.Writer
