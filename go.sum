@@ -10,8 +10,8 @@ golang.org/x/net v0.0.0-20190620200207-3b0461eec859/go.mod h1:z5CRVTTTmAJ677TzLL
 golang.org/x/sync v0.0.0-20190423024810-112230192c58/go.mod h1:RxMgew5VJxzue5/jJTE5uejpjVlOe/izrB70Jof72aM=
 golang.org/x/sys v0.0.0-20190215142949-d0b11bdaac8a/go.mod h1:STP8DvDyc/dI5b8T5hshtkjS+E42TnysNCUPdjciGhY=
 golang.org/x/sys v0.0.0-20190412213103-97732733099d/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
-golang.org/x/sys v0.0.0-20220823224334-20c2bfdbfe24 h1:TyKJRhyo17yWxOMCTHKWrc5rddHORMlnZ/j57umaUd8=
-golang.org/x/sys v0.0.0-20220823224334-20c2bfdbfe24/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
+golang.org/x/sys v0.0.0-20220825204002-c680a09ffe64 h1:UiNENfZ8gDvpiWw7IpOMQ27spWmThO1RwwdQVbJahJM=
+golang.org/x/sys v0.0.0-20220825204002-c680a09ffe64/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
 golang.org/x/text v0.3.0/go.mod h1:NqM8EUOU14njkJ3fqMW+pc6Ldnwhi/IjpwHt7yyuwOQ=
 golang.org/x/tools v0.0.0-20200130002326-2f3ba24bd6e7/go.mod h1:TB2adYChydJhpapKDTa4BR/hXlZSLoq2Wpct/0txZ28=
 golang.org/x/tools v0.1.12 h1:VveCTK38A2rkS8ZqFY25HIDFscX5X9OoEhJd3quQmXU=
@@ -21,7 +21,7 @@ shanhu.io/dags v0.0.0-20220320061527-bb7abb042c8a h1:NcOLR5x5Iunl2bz74vc0rTDZdlt
 shanhu.io/dags v0.0.0-20220320061527-bb7abb042c8a/go.mod h1:7Vbod2TNeWhaiyPB9XbMlyH8t4a5UvWsq73TIO5WBww=
 shanhu.io/gcimporter v0.0.0-20220809023309-46562c2255f7 h1:jSnFonLk6rcZtZTQiaB5Zu1ZK8FUpfgS/qBZOK1H14Y=
 shanhu.io/gcimporter v0.0.0-20220809023309-46562c2255f7/go.mod h1:d21aFZDfjwqWmctALQDSYk1SJG9OpgaKvXk1NjJa7kE=
-shanhu.io/misc v0.0.0-20220825034832-d5eacdfeb2c4 h1:vu4yaZIljX8xWxgVhXCejMdihCwnN1hQMzZyk/TChSI=
-shanhu.io/misc v0.0.0-20220825034832-d5eacdfeb2c4/go.mod h1:zK0s5GJ3w7+o50RhLfvqZ9jXtJtRTyySBiwn5mr8Q+U=
+shanhu.io/misc v0.0.0-20220826040747-aab34ca5268a h1:q8XCt4VkAF1j2phh6y1GxnfbTzfqc+B+36xzdiPkzQg=
+shanhu.io/misc v0.0.0-20220826040747-aab34ca5268a/go.mod h1:RVYKuIkDQTMS+nMTLdnuav5jvKjrTrwnsp70DsgYnZk=
 shanhu.io/text v0.0.0-20220403174149-0195ecfdda87 h1:5B5QyUHPdmsKzfhgJjG7LZ3gdIL7NSBAMtL4QCXx07E=
 shanhu.io/text v0.0.0-20220403174149-0195ecfdda87/go.mod h1:CexHuZjVSZj85hsKVcxZq80AMSdJNPFlOD4lSDEEE5g=
