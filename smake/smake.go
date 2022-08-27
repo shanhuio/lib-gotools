@@ -17,6 +17,7 @@ package smake
 
 import (
 	"fmt"
+	"path"
 	"path/filepath"
 
 	lintpkg "golang.org/x/lint"
@@ -83,6 +84,9 @@ func lint(c *context, pkgs []*relPkg) error {
 }
 
 func tags(c *context, pkgs []*relPkg) error {
+	if !c.atModRoot() {
+		return nil
+	}
 	c.logln("tags")
 
 	var files []string
@@ -95,17 +99,27 @@ func tags(c *context, pkgs []*relPkg) error {
 
 func listPkgs(c *context) ([]*relPkg, error) {
 	root := c.modRootDir()
+	workDir := c.workDir()
+
 	modFile := filepath.Join(root, "go.mod")
 	mod, err := gomod.Parse(modFile)
 	if err != nil {
 		return nil, errcode.Annotate(err, "parse go.mod")
 	}
 
-	scanRes, err := goload.ScanModPkgs(mod.Name, root, nil)
+	relPath, err := filepath.Rel(root, workDir)
+	if err != nil {
+		return nil, errcode.Annotate(err, "get relative path")
+	}
+	relPkg := filepath.ToSlash(relPath)
+
+	workPkg := path.Join(mod.Name, relPkg)
+
+	scanRes, err := goload.ScanModPkgs(workPkg, workDir, nil)
 	if err != nil {
 		return nil, errcode.Annotate(err, "scan packages")
 	}
-	return relPkgs(mod.Name, scanRes)
+	return relPkgs(workPkg, scanRes)
 }
 
 func smake(c *context) error {

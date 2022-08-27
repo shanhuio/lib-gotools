@@ -56,6 +56,8 @@ func (c *context) workDir() string { return c.dir }
 
 func (c *context) modRootDir() string { return c.modRoot }
 
+func (c *context) atModRoot() bool { return c.dir == c.modRoot }
+
 type execConfig struct {
 	Stdout io.Writer
 	Stderr io.Writer
