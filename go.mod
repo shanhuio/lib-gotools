@@ -7,11 +7,11 @@ require (
 	golang.org/x/tools v0.1.12
 	shanhu.io/dags v0.0.0-20220320061527-bb7abb042c8a
 	shanhu.io/gcimporter v0.0.0-20220809023309-46562c2255f7
-	shanhu.io/misc v0.0.0-20220827035105-75f53d63322c
+	shanhu.io/misc v0.0.0-20220830030928-fa235f0b55e9
 	shanhu.io/text v0.0.0-20220403174149-0195ecfdda87
 )
 
 require (
 	golang.org/x/mod v0.6.0-dev.0.20220419223038-86c51ed26bb4 // indirect
-	golang.org/x/sys v0.0.0-20220825204002-c680a09ffe64 // indirect
+	golang.org/x/sys v0.0.0-20220829200755-d48e67d00261 // indirect
 )
