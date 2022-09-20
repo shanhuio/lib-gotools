@@ -93,9 +93,11 @@ func (env *ExecEnv) Cmd(j *ExecJob) *exec.Cmd {
 			ret.Dir = filepath.Join(env.gopath, j.Dir)
 		}
 	}
-	osutil.CmdCopyEnv(ret, "HOME")
-	osutil.CmdCopyEnv(ret, "PATH")
-	osutil.CmdCopyEnv(ret, "SSH_AUTH_SOCK")
+	for _, k := range []string{
+		"HOME", "PATH", "SSH_AUTH_SOCK",
+	} {
+		osutil.CmdCopyEnv(ret, k)
+	}
 	osutil.CmdAddEnv(ret, "GO111MODULE", "off")
 	if env.gopath != "" {
 		osutil.CmdAddEnv(ret, "GOPATH", env.gopath)
