@@ -7,7 +7,7 @@ require (
 	golang.org/x/tools v0.1.12
 	shanhu.io/dags v0.0.0-20220320061527-bb7abb042c8a
 	shanhu.io/gcimporter v0.0.0-20220809023309-46562c2255f7
-	shanhu.io/misc v0.0.0-20220921190814-df5eedd86479
+	shanhu.io/misc v0.0.0-20220924060604-a30f053f63de
 	shanhu.io/text v0.0.0-20220403174149-0195ecfdda87
 )
 
